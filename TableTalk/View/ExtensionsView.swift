@@ -21,3 +21,13 @@ extension Color {
         
     }
 }
+
+extension MainHomeView {
+    
+    func monthYearString(from date: Date) -> String
+    {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM yyyy"
+        return formatter.string(from: date)
+    }
+}
