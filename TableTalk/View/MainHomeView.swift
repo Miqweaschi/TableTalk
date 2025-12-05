@@ -22,12 +22,13 @@ struct MainHomeView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.bottom,20)
                     .padding(.top,50)
-                    .background(Color(red: 0.800, green: 0.0, blue: 0.1))
+                    .background(Color(r:182,g:23,b:45,opacity:100))
                     .shadow(color:.black,    radius : 0)
                 
                     Spacer()
             }
-            .background(Color.yellow.opacity(0.1))
+            .background(Color(r: 255,g: 247,b: 238,opacity: 100))
+            
         
         
     }
