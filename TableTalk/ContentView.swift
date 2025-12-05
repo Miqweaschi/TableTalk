@@ -8,17 +8,39 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var model =  Model()
+    @State var TabSelection = 0
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            // ActivityView()
+            MainHomeView()
+                .tabItem {
+                Label("Activity", systemImage: "calendar")
+            }
+            
+            //LessonsView()
+            MainHomeView()
+                .tabItem {
+                Label("Lessons", systemImage: "book.closed")
+            }
+            
+            //SimulationView()
+            MainHomeView()
+                .tabItem {
+                Label("Simulation", systemImage: "play.fill")
+            }
+            
+            //SettingsView()
+            MainHomeView()
+                .tabItem {
+                Label("Settings", systemImage: "gearshape")
+            }
         }
-        .padding()
+        
     }
 }
+    #Preview {
+        ContentView()
+    }
 
-#Preview {
-    ContentView()
-}

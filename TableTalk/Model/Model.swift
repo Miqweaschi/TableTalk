@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 struct Utente {
     
@@ -17,4 +18,14 @@ struct Utente {
     
    
     
+}
+class Model:ObservableObject {
+    
+    
+    @Published var tabBarChanged = false
+    @Published var tabViewSelectedIndex = Int.max{
+        didSet {
+            tabBarChanged = true
+        }
+    }
 }

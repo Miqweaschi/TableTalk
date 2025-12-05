@@ -29,7 +29,6 @@ struct MainHomeView: View {
             }
             .background(Color.yellow.opacity(0.1))
         
-        
     }
 }
 struct ContentView_Previews: PreviewProvider {
