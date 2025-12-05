@@ -37,6 +37,7 @@ struct ContentView: View {
                 Label("Settings", systemImage: "gearshape")
             }
         }
+        .tint((Color(r:182,g:23,b:45,opacity:100)))
         
     }
 }

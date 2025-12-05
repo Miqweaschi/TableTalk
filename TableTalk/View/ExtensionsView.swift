@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 extension Color {
     init(r : Double , g: Double, b: Double, opacity : Double){
@@ -22,12 +23,9 @@ extension Color {
     }
 }
 
-extension MainHomeView {
-    
-    func monthYearString(from date: Date) -> String
-    {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM yyyy"
-        return formatter.string(from: date)
+struct CalendarView: UIViewRepresentable {
+    func makeUIView(context: Context) -> UICalendarView {
+        return UICalendarView()
     }
+    func updateUIView(_ uiView: UICalendarView, context: Context) {}
 }

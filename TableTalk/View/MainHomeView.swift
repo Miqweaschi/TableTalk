@@ -14,6 +14,7 @@ struct MainHomeView: View {
    @State  var nome : Utente = Utente(name: "")
    @State  var isAuthonticated : Bool = false
    @State private var selectedDate = Date()
+    @State private var progress: Double = 0.2 //progress va da 0.0 a 1
     
     private let columns = Array(repeating: GridItem(.flexible()), count: 7)
     
@@ -28,22 +29,22 @@ struct MainHomeView: View {
                     .background(Color(r:182,g:23,b:45,opacity:100))
                     .shadow(color:.black,    radius : 0)
                 
-        
-            
-                
-                // Date Picker
                 VStack{
-                    DatePicker("Attività", selection: $selectedDate, in:
-                                Date()...,
-                               displayedComponents: .date)
-                                                     
+                    Gauge(value: progress , label: { Text("\(Int(progress * 10))/10") })
+                        .frame(width: 200, height: 100)
+                        .padding(.top,100)
+                        .tint(Color(r:182,g:23,b:45,opacity:100))
                 }
+                // Date Picker
+               
+                DatePicker("Attività", selection: $selectedDate, displayedComponents: [.date])
+                
                 .datePickerStyle(.graphical)
-                
-                
-                
-                
-                    Spacer()
+                .padding(.top,10)
+                .tint(Color(r:182,g:23,b:45,opacity:100))
+            
+                    
+                Spacer()
                 
             }
     
