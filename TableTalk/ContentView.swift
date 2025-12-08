@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var model =  Model()
-    @State var TabSelection = 0
     
     var body: some View {
+        //TabView ci permette di creare una barra di navigazione.
         TabView {
             // ActivityView()
             MainHomeView()
