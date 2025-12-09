@@ -15,3 +15,8 @@ struct TableTalkApp: App {
         }
     }
 }
+
+
+#Preview {
+    ContentView()
+}

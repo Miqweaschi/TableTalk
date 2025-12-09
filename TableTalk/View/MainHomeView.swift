@@ -39,6 +39,7 @@ struct MainHomeView: View {
                         .frame(width: 200, height: 100)
                         .padding(.top,100)
                         .tint(Color(r:182,g:23,b:45,opacity:100))
+                        .offset(x: 0, y: -50)
                 }
                 
                 
@@ -51,6 +52,7 @@ struct MainHomeView: View {
                 .datePickerStyle(.graphical)
                 .padding(.top,10)
                 .tint(Color(r:182,g:23,b:45,opacity:100))
+                .offset(x: 0, y: -20)
             
                     
                 Spacer()

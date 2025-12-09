@@ -18,8 +18,7 @@ struct ContentView: View {
                 Label("Activity", systemImage: "calendar")
             }
             
-            //LessonsView()
-            MainHomeView()
+            LessonsView()
                 .tabItem {
                 Label("Lessons", systemImage: "book.closed")
             }
@@ -40,6 +39,8 @@ struct ContentView: View {
         
     }
 }
+
+
     #Preview {
         ContentView()
     }
