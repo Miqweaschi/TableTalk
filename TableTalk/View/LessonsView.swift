@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct LessonsView: View {
-    @State var ciao: String = "Ciao"
-    @State var isPresented = true
+  
     
     @EnvironmentObject var model:Model
 

@@ -23,9 +23,4 @@ extension Color {
     }
 }
 
-struct CalendarView: UIViewRepresentable {
-    func makeUIView(context: Context) -> UICalendarView {
-        return UICalendarView()
-    }
-    func updateUIView(_ uiView: UICalendarView, context: Context) {}
-}
+
