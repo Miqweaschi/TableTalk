@@ -24,7 +24,7 @@ struct MainHomeView: View {
                 .background(Color(r:182,g:23,b:45,opacity:100))
             
             Spacer()
-            
+            Text("PROGRESSSSS")
             ZStack{
                 Circle()
                     .stroke(
@@ -47,16 +47,30 @@ struct MainHomeView: View {
                 Text("\(progress * 10, specifier: "%.0f")/10")
                     .bold()
             }
+            .offset(x:0, y: 20)
             
             Spacer()
             
-            //DatePicker è una funzione che ci permette di implementare il calendario
+            // DatePicker con cornice arrotondata
             DatePicker("", selection: $selectedDate, displayedComponents: [.date])
                 .datePickerStyle(.graphical)
-                .padding(.top,10)
                 .tint(Color(r:182,g:23,b:45,opacity:100))
-                .offset(x: 0, y: -20)
-                
+                //.scaleEffect(0.853)
+                .padding(12) // spazio interno tra calendario e bordo
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.red.opacity(1), lineWidth: 2)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(r: 255,g: 247,b: 238,opacity: 100)) // opzionale: riempimento dentro il bordo
+                        )
+                )
+                .padding(.horizontal, 16) // spazio esterno dal bordo dello schermo
+                .padding(.top, 10)
+                .offset(x: 0, y: 1)
+            
+
+            
             Spacer()
             
         }

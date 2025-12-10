@@ -30,10 +30,10 @@ struct RoadMapView: View {
                             Text("\(key)")
                         }
                     }
+                    
                     .padding()
                     .background(Color(.systemGray5))
                     .clipShape(.circle)
-                    
                 }
             }
         }
