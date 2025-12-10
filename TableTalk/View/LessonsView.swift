@@ -48,7 +48,7 @@ struct LessonsView: View {
                     }
                 }
             }
-            .background(Color(red: 255/255, green: 247/255, blue: 238/255))
+            .background(Color(r: 255,g: 247,b: 238,opacity: 100))
         }
     }
 }
