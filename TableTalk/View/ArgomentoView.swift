@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct ArgomentoView: View {
+    let arg: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        // Qui gestiremo il singolo argomento passato in RoadMapView()
+        Text(arg)
     }
-}
-
-#Preview {
-    ArgomentoView()
 }

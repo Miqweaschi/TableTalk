@@ -16,31 +16,38 @@ struct Utente {
     }
 }
 
+
 // This struct rappresent a single Lesson
-struct Lesson : Hashable{
+struct Lesson : Hashable {
     var title: String
     var number: String
+    var argomenti: [Int:String]
     var id = UUID()
     
-    init(title: String = "", number: String = "1") {
+    init(title: String = "",
+         number: String = "1",
+         argomenti: [Int:String] = [1: ""]) {
         self.title = title
         self.number = number
+        self.argomenti = argomenti
     }
 }
 
 class Model : ObservableObject {
+    // argomenti lezione 1
+    static let argsL1: [Int:String] = [
+        1: "Saluti iniziali",
+        2: "Saluti finali"
+    ]
+
+    // lessonList.lezione_specifica.argomenti
     // add here new lessons
     let lessonsList = [
-        Lesson(title: "Welcome", number: "1"),
+        Lesson(title: "Welcome", number: "1", argomenti: argsL1),
         Lesson(title: "Numbers", number: "2"),
         Lesson(title: "Kitchen", number: "3"),
         Lesson(title: "Ingredients", number: "4"),
         Lesson(title: "Advanced", number: "5"),
         Lesson(title: "Advanced", number: "6"),
-        Lesson(title: "Advanced", number: "7"),
-        Lesson(title: "Advanced", number: "8"),
-        Lesson(title: "Advanced", number: "9"),
-        Lesson(title: "Advanced", number: "10"),
     ]
 }
-
