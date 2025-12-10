@@ -11,9 +11,13 @@ struct LessonsView: View {
     @State private var i: Int = 0
     @State var ciao: String = "Ciao"
     @State var isPresented = true
-    private let totalLessons = 30
+    private let totalLessons = 5
     
+    @EnvironmentObject var model:Model
+
     var body: some View {
+        let lessonList = model.lessonsList
+        
         VStack {
             Text("Lessons")
                 .font(.largeTitle)
@@ -23,22 +27,22 @@ struct LessonsView: View {
             
             ScrollView {
                 VStack {
-                    ForEach(1...totalLessons, id: \.self) { i in
+                    ForEach(lessonList, id: \.self) { lesson in
                         HStack {
-                            Text("\(i)")
+                            Text(lesson.number)
                                 .font(.title)
-                                .frame(width: 50, height: 50)
+                                .frame(width: 40, height: 50)
                                 .foregroundColor(.white)
                                 .background(
                                     Color(red: 182/255, green: 23/255, blue: 45/255)
                                 )
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                             
-                            Text("Advanced")
-                                .foregroundColor(.black)
-                            
+                            Text(lesson.title)
+                           
                             Spacer()
                         }
+                        
                         .padding()
                         .background(Color(.systemGray5))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -52,4 +56,5 @@ struct LessonsView: View {
 
 #Preview {
     LessonsView()
+        .environmentObject(Model())
 }
