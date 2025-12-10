@@ -55,6 +55,6 @@ struct LessonsView: View {
 }
 
 #Preview {
-    LessonsView()
+    ContentView()
         .environmentObject(Model())
 }
