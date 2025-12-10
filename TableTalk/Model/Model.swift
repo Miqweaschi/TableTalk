@@ -9,15 +9,11 @@ import Foundation
 import Combine
 
 struct Utente {
-    
     let name : String
     
     func getName() -> String {
         return name
     }
-    
-    
-    
 }
 
 // This struct rappresent a single Lesson

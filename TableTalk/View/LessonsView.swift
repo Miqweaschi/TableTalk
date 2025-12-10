@@ -11,7 +11,6 @@ struct LessonsView: View {
     @State private var i: Int = 0
     @State var ciao: String = "Ciao"
     @State var isPresented = true
-    private let totalLessons = 5
     
     @EnvironmentObject var model:Model
 
