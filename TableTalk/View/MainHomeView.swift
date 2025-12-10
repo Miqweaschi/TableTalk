@@ -11,7 +11,7 @@ struct MainHomeView: View {
     @State private var selectedDate = Date()
     
     // Valore numerico del progresso
-    @State private var progress: Double = 0.2
+    @State private var progress: Double = 0.0
     
     var body: some View {
         VStack {

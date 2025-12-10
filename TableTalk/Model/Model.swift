@@ -37,6 +37,10 @@ class Model : ObservableObject {
         Lesson(title: "Ingredients", number: "4"),
         Lesson(title: "Advanced", number: "5"),
         Lesson(title: "Advanced", number: "6"),
+        Lesson(title: "Advanced", number: "7"),
+        Lesson(title: "Advanced", number: "8"),
+        Lesson(title: "Advanced", number: "9"),
+        Lesson(title: "Advanced", number: "10"),
     ]
 }
 

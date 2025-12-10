@@ -45,6 +45,7 @@ NavigationStack{
                                     
                                     Text(lesson.title.uppercased())
                                     .foregroundColor(.black)
+                                    
                                     Spacer()
                                 }
                                 .padding()
@@ -64,3 +65,4 @@ NavigationStack{
     ContentView()
         .environmentObject(Model())
 }
+
