@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LessonsView: View {
-    @State private var i: Int = 0
     @State var ciao: String = "Ciao"
     @State var isPresented = true
     
@@ -19,10 +18,14 @@ struct LessonsView: View {
         
         VStack {
             Text("Lessons")
-                .font(.largeTitle)
+                .font(Font.largeTitle)
+                .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
-                .padding(.bottom, 20)
-                .padding(.top, 30)
+                .padding(.bottom,20)
+                .padding(.top,50)
+                .background(Color(r:182,g:23,b:45,opacity:100))
+            
+            Spacer()
             
             ScrollView {
                 VStack {
@@ -38,7 +41,6 @@ struct LessonsView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                             
                             Text(lesson.title.uppercased())
-                           
                             Spacer()
                         }
                         
