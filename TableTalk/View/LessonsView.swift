@@ -37,7 +37,7 @@ struct LessonsView: View {
                                 )
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                             
-                            Text(lesson.title)
+                            Text(lesson.title.uppercased())
                            
                             Spacer()
                         }
