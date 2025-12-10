@@ -56,6 +56,7 @@ struct MainHomeView: View {
                 .padding(.top,10)
                 .tint(Color(r:182,g:23,b:45,opacity:100))
                 .offset(x: 0, y: -20)
+                
             Spacer()
             
         }
