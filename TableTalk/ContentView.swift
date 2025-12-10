@@ -28,12 +28,6 @@ struct ContentView: View {
                 .tabItem {
                 Label("Simulation", systemImage: "play.fill")
             }
-            
-            //SettingsView()
-            MainHomeView()
-                .tabItem {
-                Label("Settings", systemImage: "gearshape")
-            }
         }
         .tint((Color(r:182,g:23,b:45,opacity:100)))
         
