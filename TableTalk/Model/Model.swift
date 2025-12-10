@@ -34,7 +34,7 @@ struct Lesson {
 
 class Model:ObservableObject {
     // add here new lessons
-    let lessons = [
+    let lessonsList = [
         Lesson(title: "Welcome", number: 1),
         Lesson(title: "Numbers", number: 2),
         Lesson(title: "Kitchen", number: 3),
