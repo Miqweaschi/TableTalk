@@ -5,20 +5,19 @@ import UIKit
 
 struct RoadMapView: View {
     var body: some View {
-            VStack
+        VStack
         {
             Text("RoadMap")
                 .font(.largeTitle)
                 .padding()
             
-            List {
-                Text("Item 1")
-                Text("Item 2")
-                Text("Item 3")
-                
-            }
-            
+            Image("Roadmap")
+                .resizable()
+                .scaledToFit()
+
         }
+        
+
     }
 }
 
