@@ -37,12 +37,22 @@ struct RoadMapView: View {
                 } label: {
                     HStack {
                         Text("\(keys[0])")
-                            .padding(50)
+                            .padding(51)
                             .font(.system(size: 60))
                     }
                 }
                 .background(Color(.systemGray5))
                 .clipShape(.circle)
+                .overlay(
+                    Circle()
+                        .stroke(
+                            Color.init(r: 182, g: 23, b: 45, opacity: 100),
+                            style: StrokeStyle(
+                                lineWidth: 4,
+                                lineCap: .round
+                            )
+                        )
+                )
                 .offset(x:-104, y: -39)
                 
                 // Bottone 2
@@ -57,6 +67,16 @@ struct RoadMapView: View {
                 }
                 .background(Color(.systemGray5))
                 .clipShape(.circle)
+                .overlay(
+                    Circle()
+                        .stroke(
+                            Color.init(r: 182, g: 23, b: 45, opacity: 100),
+                            style: StrokeStyle(
+                                lineWidth: 4,
+                                lineCap: .round
+                            )
+                        )
+                )
                 .offset(x: 110, y: 47)
                 
                 // Bottone 3
@@ -71,6 +91,17 @@ struct RoadMapView: View {
                 }
                 .background(Color(.systemGray5))
                 .clipShape(.circle)
+                .overlay(
+                    Circle()
+                        .stroke(
+                            Color.init(r: 182, g: 23, b: 45, opacity: 100),
+                            style: StrokeStyle(
+                                lineWidth: 4,
+                                lineCap: .round
+                            )
+                        )
+                )
+                .offset(x:-110, y: 100)
             }
         }
     }

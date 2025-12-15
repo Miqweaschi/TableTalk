@@ -24,7 +24,7 @@ struct MainHomeView: View {
                 .background(Color(r:182,g:23,b:45,opacity:100))
             
             Spacer()
-            Text("PROGRESSSSS")
+            Text("PROGRES")
             ZStack{
                 Circle()
                     .stroke(
