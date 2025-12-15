@@ -28,7 +28,8 @@ struct RoadMapView: View {
                 } label: {
                     HStack {
                         Text("\(keys[0])")
-                            .padding(80)
+                            .padding(50)
+                            .font(.system(size: 60))
                     }
                 }
                 .background(Color(.systemGray5))
@@ -40,12 +41,13 @@ struct RoadMapView: View {
                 } label: {
                     HStack {
                         Text("\(keys[1])")
-                            .padding(80)
+                            .padding(50)
+                            .font(.system(size: 60))
                     }
                 }
                 .background(Color(.systemGray5))
                 .clipShape(.circle)
-                .offset(x: 110, y: 40)
+                .offset(x: 110, y: 47)
                 
                 // Bottone 3
                 NavigationLink {
@@ -53,7 +55,8 @@ struct RoadMapView: View {
                 } label: {
                     HStack {
                         Text("\(keys[2])")
-                            .padding(80)
+                            .padding(50)
+                            .font(.system(size: 60))
                     }
                 }
                 .background(Color(.systemGray5))
