@@ -22,14 +22,12 @@ struct RoadMapView: View {
                 let buttonTwo = sortedItems[1]
                 let buttonThree = sortedItems[2]
                 
+                /// Logica valida per tutti i bottoni (Argomento): passiamo la lista di esercizi (Esercizi)
+                /// ad EsercizioView che al suo interno li gestirà singolarmente
+                
                 // Bottone 1
                 NavigationLink {
-                    // Ci serve l'if dato che è un optional
-                    if let l1b1 = buttonOne.esercizi.items.first {
-                        EsercizioView(esercizio: l1b1)
-                    } else {
-                        EmptyView()
-                    }
+                    EsercizioView(esercizi: buttonOne.esercizi)
                 } label: {
                     HStack {
                         Text(buttonOne.number)
@@ -53,11 +51,7 @@ struct RoadMapView: View {
                 
                 // Bottone 2
                 NavigationLink {
-                    if let l1b2 = buttonTwo.esercizi.items.first {
-                        EsercizioView(esercizio: l1b2)
-                    } else {
-                        EmptyView()
-                    }
+                    EsercizioView(esercizi: buttonTwo.esercizi)
                 } label: {
                     HStack {
                         Text(buttonTwo.number)
@@ -81,11 +75,7 @@ struct RoadMapView: View {
                 
                 // Bottone 3
                 NavigationLink {
-                    if let l1b3 = buttonThree.esercizi.items.first {
-                        EsercizioView(esercizio: l1b3)
-                    } else {
-                        EmptyView()
-                    }
+                    EsercizioView(esercizi: buttonThree.esercizi)
                 } label: {
                     HStack {
                         Text(buttonThree.number)
