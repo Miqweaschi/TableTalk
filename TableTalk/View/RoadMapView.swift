@@ -53,7 +53,7 @@ struct RoadMapView: View {
                             )
                         )
                 )
-                .offset(x:-104, y: -39)
+                .offset(x:-104, y: -28)
                 
                 // Bottone 2
                 NavigationLink {
@@ -77,9 +77,9 @@ struct RoadMapView: View {
                             )
                         )
                 )
-                .offset(x: 110, y: 47)
+                .offset(x: 110, y: 55)
                 
-                // Bottone 3
+                // Bottone 5
                 NavigationLink {
                     ArgomentoView(arg: buttonThree!)
                 } label: {
