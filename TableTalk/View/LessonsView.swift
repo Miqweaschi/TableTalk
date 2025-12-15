@@ -31,6 +31,7 @@ struct LessonsView: View {
                         // Ogni lezione contiene: numero, titolo e lista argomenti relativi ad essa.
                         // La lista degli argomenti relativa ad una lezione la passiamo a RoadMapView
                         // vedi RoadMapView() per spiegazione
+                        
                         ForEach(lessonList, id: \.self) { lesson in
                             NavigationLink{
                                 
