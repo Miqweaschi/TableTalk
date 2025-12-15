@@ -22,7 +22,7 @@ struct Esercizio<Q: Hashable, A: Hashable>: Hashable {
     var question: Q
     var answer: A
     var done: Bool
-
+    
     init(_ question: Q, _ answer: A, done: Bool = false) {
         self.question = question
         self.answer = answer
@@ -33,7 +33,7 @@ struct Esercizio<Q: Hashable, A: Hashable>: Hashable {
 // Lista degli esercizi di un singolo argomento
 struct Esercizi<Q: Hashable, A: Hashable>: Hashable {
     var items: [Esercizio<Q, A>]
-
+    
     init(items: [Esercizio<Q, A>] = []) {
         self.items = items
     }
@@ -52,7 +52,7 @@ struct Argomento: Hashable, Identifiable {
     var content: String     // contenuto dell'argomento
     var completed: Bool     // argomento completato o no
     var esercizi: Esercizi<EsercizioContent, EsercizioContent>
-
+    
     init(number: String = "", content: String = "", completed: Bool = false, esercizi: Esercizi<EsercizioContent, EsercizioContent> = Esercizi()) {
         self.number = number
         self.content = content
@@ -64,7 +64,7 @@ struct Argomento: Hashable, Identifiable {
 // Collezione di argomenti per una lezione
 struct Argomenti: Hashable {
     var items: [Argomento]
-
+    
     init(items: [Argomento] = []) {
         self.items = items
     }
@@ -76,7 +76,7 @@ struct Lesson: Hashable, Identifiable {
     var title: String
     var number: String
     var argomenti: Argomenti
-
+    
     init(title: String = "", number: String = "1", argomenti: Argomenti = Argomenti()) {
         self.title = title
         self.number = number
@@ -87,7 +87,7 @@ struct Lesson: Hashable, Identifiable {
 class Model: ObservableObject {
     // 10 esercizi relativi al primo bottone della prima lezione
     static let l1b1: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
-        Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
+        Esercizio(.text("Come ti chiami?"), .text("Gay"), done: false),
         Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
         Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
         Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
@@ -106,7 +106,7 @@ class Model: ObservableObject {
         
         Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
         Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
-       
+        
         Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
         Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
         
@@ -119,17 +119,17 @@ class Model: ObservableObject {
     
     // Varie lezioni
     let argsL1: Argomenti
-
+    
     // Lista lezioni
     let lessonsList: [Lesson]
-
+    
     init() {
         self.argsL1 = Argomenti(items: [
             Argomento(number: "1", content: "Saluti iniziali", completed: false, esercizi: Model.l1b1),
             Argomento(number: "2", content: "Presentazioni", completed: false),
             Argomento(number: "3", content: "Esercizi finali", completed: false)
         ])
-
+        
         self.lessonsList = [
             Lesson(title: "Welcome", number: "1", argomenti: self.argsL1),
             Lesson(title: "Numbers", number: "2", argomenti: self.argsL1),
