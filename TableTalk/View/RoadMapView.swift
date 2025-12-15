@@ -12,31 +12,53 @@ struct RoadMapView: View {
             Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
             NavigationStack {
                 
-                // Iteri sugli argomenti della lezione passata in LessonView().
-                // Per ogni argomento crei un bottone che ti porta alla pagina dedicata
-                // al singolo argomento
-                // Esempio:
-                // Lezione1: Lesson -> contiene argomentiL1 -> contiene ad esempio 5 argomenti
-                // per ogni argomento creiamo un bottone che ci porta alla pagina ArgomentoView()
-                // relativo allo specifico argomento
-                ForEach(lesson.argomenti.keys.sorted(), id: \.self) { key in
-                    let valueAtKey = lesson.argomenti[key]
-                    NavigationLink {
-                        // Passiamo il contenuto dell'argomento
-                        ArgomentoView(arg: valueAtKey!)
+                // Per ogni RoadMap i bottoni saranno sempre 3
+                // quindi li creiamo senza il for in modo tale da poter
+                // fare lo styling singolarmente
+                // E' quindi importante che per ogni lezione ci siano sempre
+                // e solo 3 argomenti
+                let keys = lesson.argomenti.keys.sorted()
+                let buttonOne = lesson.argomenti[keys[0]]
+                let buttonTwo = lesson.argomenti[keys[1]]
+                let buttonThree = lesson.argomenti[keys[2]]
+
+                // Bottone 1
+                NavigationLink {
+                    ArgomentoView(arg: buttonOne!)
+                } label: {
+                    HStack {
+                        Text("\(keys[0])")
+                            .padding(80)
                     }
-                    label: {
-                        HStack {
-                            Text("\(key)")
-                        }
-                    }
-                    
-                    .padding()
-                    .background(Color(.systemGray5))
-                    .clipShape(.circle)
                 }
+                .background(Color(.systemGray5))
+                .clipShape(.circle)
+                
+                // Bottone 2
+                NavigationLink {
+                    ArgomentoView(arg: buttonTwo!)
+                } label: {
+                    HStack {
+                        Text("\(keys[1])")
+                            .padding(80)
+                    }
+                }
+                .background(Color(.systemGray5))
+                .clipShape(.circle)
+                .offset(x: 110, y: 40)
+                
+                // Bottone 3
+                NavigationLink {
+                    ArgomentoView(arg: buttonThree!)
+                } label: {
+                    HStack {
+                        Text("\(keys[2])")
+                            .padding(80)
+                    }
+                }
+                .background(Color(.systemGray5))
+                .clipShape(.circle)
             }
         }
     }
 }
-
