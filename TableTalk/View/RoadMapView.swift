@@ -20,7 +20,7 @@ struct RoadMapView: View {
             NavigationStack {
                 // Con il nuovo modello, argomenti è una lista. Ordiniamo per numero e prendiamo i primi 3.
                 let sortedItems = lesson.argomenti.items.sorted { $0.number < $1.number }
-                let buttonOne = sortedItems[0]
+                let buttonOne = model.lessonsList[lessonIndex].argomenti.items[0]
                 let buttonTwo = sortedItems[1]
                 let buttonThree = sortedItems[2]
                 
@@ -30,33 +30,39 @@ struct RoadMapView: View {
                 // Bottone 1
                 NavigationLink {
                     EsercizioView(
-                        esercizi: buttonOne.esercizi,
+                        esercizi: model.lessonsList[lessonIndex].argomenti.items[0].esercizi,
                         onComplete: {
                             markCompleted(lessonIndex: lessonIndex, argIndex: 0)
                         }
                     )
                 } label: {
-                    HStack {
-                        Text(buttonOne.number)
-                            .padding(51)
-                            .font(.system(size: 60))
-                            .background(buttonOne.completed ? Color.red : Color(.systemGray5))
-                    }
-                    
-                }
-                .background(Color(.systemGray5))
-                .clipShape(.circle)
+                    Text(model.lessonsList[lessonIndex].argomenti.items[0].number)
+                        .font(.system(size: 60))
+                        .padding(51)
+                        .foregroundColor(model.lessonsList[lessonIndex].argomenti.items[0].completed
+                                                                 ? Color(.systemGray5)
+                                                                 : Color(r: 182, g: 23, b: 45, opacity: 100))
+                        .background(
+                            model.lessonsList[lessonIndex].argomenti.items[0].completed
+                            ? Color(r: 182, g: 23, b: 45, opacity: 100)
+                            : Color(.systemGray5)
+                )
+            }
+                /*.background(
+                    model.lessonsList[lessonIndex].argomenti.items[0].completed
+                    ? Color(r: 182, g: 23, b: 45, opacity: 100)
+                    : Color(.systemGray5)
+                )*/
+                .clipShape(Circle())
                 .overlay(
                     Circle()
                         .stroke(
-                            Color.init(r: 182, g: 23, b: 45, opacity: 100),
-                            style: StrokeStyle(
-                                lineWidth: 4,
-                                lineCap: .round
-                            )
+                            Color(r: 182, g: 23, b: 45, opacity: 100),
+                            lineWidth: 4
                         )
                 )
-                .offset(x:-104, y: -28)
+                .offset(x: -104, y: -28)
+
                 
                 // Bottone 2
                 NavigationLink {
@@ -122,5 +128,6 @@ struct RoadMapView: View {
     private func markCompleted(lessonIndex: Int, argIndex: Int) {
         model.lessonsList[lessonIndex].argomenti.items[argIndex].completed = true
     }
+
 }
 

@@ -1,12 +1,12 @@
 //
-//  SubEsercizioView.swift
+//  TextSubEsercizioView.swift
 //  TableTalk
 //
 //  Created by AFP PAR 32 on 15/12/25.
 //
-
+ 
 import SwiftUI
-
+ 
 struct TextSubEsercizioView: View {
     let esercizio: Esercizio<EsercizioContent, EsercizioContent>
     let onCorrectAnswer: () -> Void
@@ -30,8 +30,13 @@ struct TextSubEsercizioView: View {
                 
                 // Campo di testo
                 TextField("Rispondi qui", text: $userAnswer)
-                    .textFieldStyle(.roundedBorder)
-                    .disabled(answerState == .correct) // blocca input mentre verde
+                   //.textFieldStyle(.roundedBorder)
+                    .padding(10)
+                    .disabled(answerState == .correct)// blocca input mentre verde
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(backgroundColorForAnswerState) // riempimento condizionale
+                    )
                 
                 // Bottone conferma
                 Button("Conferma") {
@@ -53,8 +58,8 @@ struct TextSubEsercizioView: View {
     }
     
     // Funzione che controlla la risposta
-    private func checkAnswer() async {
-        guard case let .text(correct) = esercizio.answer else { return }
+    private func checkAnswer() async -> Bool {
+        guard case let .text(correct) = esercizio.answer else { return false}
         
         let cleanedUser = userAnswer
             .trimmingCharacters(in: .whitespacesAndNewlines)
@@ -70,24 +75,29 @@ struct TextSubEsercizioView: View {
             userAnswer = ""
             answerState = .none
             onCorrectAnswer()
+            
+            return true
         } else {
             answerState = .wrong
             userAnswer = ""
             showError = true
+           
+            return false
         }
     }
     
+    
     // Colore di sfondo dinamico
-    private var backgroundColor: Color {
-        switch answerState {
-        case .correct:
-            return Color.green.opacity(0.25)
-        case .wrong:
-            return Color.red.opacity(0.25)
-        case .none:
-            return Color.white // sfondo neutro
-        }
-    }
+    private var backgroundColorForAnswerState: Color {
+          switch answerState {
+          case .correct:
+              return Color.green.opacity(0.20)
+          case .wrong:
+              return Color.red.opacity(0.20)
+          case .none:
+              return Color(.systemBackground)
+          }
+      }
     
     // ViewBuilder per mostrare la domanda corretta
     @ViewBuilder

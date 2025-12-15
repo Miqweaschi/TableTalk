@@ -90,7 +90,7 @@ class Model: ObservableObject {
         Esercizio(.text("Come ti chiami?"), .text("Gay"), done: false),
         Esercizio(.text("Come stai oggi?"), .text("Bene"), done: false),
         Esercizio(.text("Quanti anni hai?"), .text("20"), done: false),
-        Esercizio(.text("Che giorno è?"), .text("Lunedì"), done: false),
+        Esercizio(.text("Che giorno è?"), .text("Lunedi"), done: false),
         Esercizio(.text("Che mese è?"), .text("Dicembre"), done: false),
         Esercizio(.text("Che anno è?"), .text("2025"), done: false),
         Esercizio(.text("Dove sei?"), .text("IOS"), done: false),
