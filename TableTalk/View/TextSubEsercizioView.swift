@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SubEsercizioView: View {
+struct TextSubEsercizioView: View {
     let esercizio: Esercizio<EsercizioContent, EsercizioContent>
     let onCorrectAnswer: () -> Void
     

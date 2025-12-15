@@ -88,15 +88,15 @@ class Model: ObservableObject {
     // 10 esercizi relativi al primo bottone della prima lezione
     static let l1b1: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
         Esercizio(.text("Come ti chiami?"), .text("Gay"), done: false),
-        Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
-        Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
-        Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
-        Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
-        Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
-        Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
-        Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
-        Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
-        Esercizio(.text("Come ti chiami?"), .text("Paolo"), done: false),
+        Esercizio(.text("Come stai oggi?"), .text("Bene"), done: false),
+        Esercizio(.text("Quanti anni hai?"), .text("20"), done: false),
+        Esercizio(.text("Che giorno è?"), .text("Lunedì"), done: false),
+        Esercizio(.text("Che mese è?"), .text("Dicembre"), done: false),
+        Esercizio(.text("Che anno è?"), .text("2025"), done: false),
+        Esercizio(.text("Dove sei?"), .text("IOS"), done: false),
+        Esercizio(.text("Posso entrare?"), .text("NO"), done: false),
+        Esercizio(.text("Posso uscire?"), .text("NO"), done: false),
+        Esercizio(.text("Posso salire?"), .text("Aldo Baglio"), done: false),
     ])
     
     // Lezione1Bottone2; immagine con risposta
@@ -126,7 +126,7 @@ class Model: ObservableObject {
     init() {
         self.argsL1 = Argomenti(items: [
             Argomento(number: "1", content: "Saluti iniziali", completed: false, esercizi: Model.l1b1),
-            Argomento(number: "2", content: "Presentazioni", completed: false),
+            Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l1b2),
             Argomento(number: "3", content: "Esercizi finali", completed: false)
         ])
         

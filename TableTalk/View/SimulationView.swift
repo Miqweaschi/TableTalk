@@ -9,15 +9,11 @@ import Foundation
 import Combine
 import SwiftUI
 
-
 struct SimulationView:  View {
-    
     @EnvironmentObject var model : Model
     
     var body : some View {
         VStack{
-            
-            
             Text("Simulation")
                 .font(Font.largeTitle)
                 .foregroundColor(.white)
