@@ -9,92 +9,64 @@ import Foundation
 import Combine
 
 struct Utente {
-    let name : String
+    let name: String
     
     func getName() -> String {
         return name
     }
 }
 
+// Un singolo argomento: traccia completamento
+struct Argomento: Hashable, Identifiable {
+    var id = UUID()
+    var number: String      // numero del singolo argomento
+    var content: String     // contenuto dell'argomento
+    var completed: Bool     // argomento completato o no
+    
+    init(number: String = "", content: String = "", completed: Bool = false) {
+        self.number = number
+        self.content = content
+        self.completed = completed
+    }
+}
 
-// This struct rappresent a single Lesson
-struct Lesson : Hashable {
+// Collezione di argomenti per una lezione
+struct Argomenti: Hashable {
+    var items: [Argomento]
+    
+    init(items: [Argomento] = []) {
+        self.items = items
+    }
+}
+
+// Questa struttura rappresenta una singola lezione
+struct Lesson: Hashable, Identifiable {
+    var id = UUID()
     var title: String
     var number: String
-   // var argomenti: [Int:String]
-    var argomenti : Argomenti
-    var id = UUID()
+    var argomenti: Argomenti
     
-    init(title: String = "",
-         number: String = "1",
-         argomenti : Argomenti = Argomenti(number: "", title: "1", execute: false)) {
+    init(title: String = "", number: String = "1", argomenti: Argomenti = Argomenti()) {
         self.title = title
         self.number = number
         self.argomenti = argomenti
     }
 }
 
-struct Argomenti : Hashable {
+class Model: ObservableObject {
+    static let argsL1 = Argomenti(items: [
+        Argomento(number: "1", content: "Saluti iniziali", completed: false),
+        Argomento(number: "2", content: "Presentazioni", completed: false),
+        Argomento(number: "3", content: "Esercizi finali", completed: false)
+    ])
     
-    var number : String
-    var title : String
-    var execute : Bool
-    
-    init (number: String = "", title: String="1", execute: Bool = false) {
-        self.number = number
-        self.title = title
-        self.execute = execute
-    }
-    
-}
-
-class Model : ObservableObject {
-    // argomenti lezione 1
-    static let argsL1: [Int:String] = [
-        1: "Saluti iniziali",
-        2: "Saluti finali",
-        3: "Esercizi finali"
-    ]
-    
-    static let argsL2: [Int:String] = [
-        1: "Saluti iniziali",
-        2: "Saluti finali",
-        3: "Esercizi finali"
-    ]
-    static let argsL3: [Int:String] = [
-        1: "Saluti iniziali",
-        2: "Saluti finali",
-        3: "Esercizi finali"
-    ]
-    
-    static let argsL4: [Int:String] = [
-        1: "Saluti iniziali",
-        2: "Saluti finali",
-        3: "Esercizi finali"
-    ]
-    
-    static let argsL5: [Int:String] = [
-        1: "Saluti iniziali",
-        2: "Saluti finali",
-        3: "Esercizi finali"
-    ]
-    
-    static let argsL6: [Int:String] = [
-        1: "Saluti iniziali",
-        2: "Saluti finali",
-        3: "Esercizi finali"
-    ]
-    
-    
-
-    // lessonList.lezione_specifica.argomenti
-    // add here new lessons
-    let lessonsList = [
-        Lesson(title: "Welcome", number: "1", argomenti: argsL1),
-        Lesson(title: "Numbers", number: "2",argomenti: argsL2),
-        Lesson(title: "Kitchen", number: "3",argomenti: argsL3),
-        Lesson(title: "Ingredients", number: "4",argomenti: argsL4),
-        Lesson(title: "Advanced", number: "5",argomenti: argsL5),
-        Lesson(title: "Advanced", number: "6",argomenti: argsL6),
+    // Lista lezioni
+    let lessonsList: [Lesson] = [
+        Lesson(title: "Welcome", number: "1", argomenti: Model.argsL1),
+        Lesson(title: "Numbers", number: "2", argomenti: Model.argsL1),
+        Lesson(title: "Kitchen", number: "3", argomenti: Model.argsL1),
+        Lesson(title: "Ingredients", number: "4", argomenti: Model.argsL1),
+        Lesson(title: "Advanced", number: "5", argomenti: Model.argsL1),
+        Lesson(title: "Advanced", number: "6", argomenti: Model.argsL1)
     ]
 }

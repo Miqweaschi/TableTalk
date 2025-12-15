@@ -6,10 +6,7 @@ struct RoadMapView: View {
     let lesson: Lesson
     
     var body: some View {
-        
         ZStack{
-            
-            
             switch lesson.number{
             case "1":
                 Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
@@ -18,25 +15,19 @@ struct RoadMapView: View {
             default:
                 Image("RoadMap2ok").resizable().edgesIgnoringSafeArea(.vertical)
             }
-           // Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
             NavigationStack {
+                // Con il nuovo modello, argomenti è una lista. Ordiniamo per numero e prendiamo i primi 3.
+                let sortedItems = lesson.argomenti.items.sorted { $0.number < $1.number }
+                let buttonOne = sortedItems[0]
+                let buttonTwo = sortedItems[1]
+                let buttonThree = sortedItems[2]
                 
-                // Per ogni RoadMap i bottoni saranno sempre 3
-                // quindi li creiamo senza il for in modo tale da poter
-                // fare lo styling singolarmente
-                // E' quindi importante che per ogni lezione ci siano sempre
-                // e solo 3 argomenti
-                let keys = lesson.argomenti.keys.sorted()
-                let buttonOne = lesson.argomenti[keys[0]]
-                let buttonTwo = lesson.argomenti[keys[1]]
-                let buttonThree = lesson.argomenti[keys[2]]
-
                 // Bottone 1
                 NavigationLink {
-                    ArgomentoView(arg: buttonOne!)
+                    ArgomentoView(argomento: buttonOne)
                 } label: {
                     HStack {
-                        Text("\(keys[0])")
+                        Text(buttonOne.number)
                             .padding(51)
                             .font(.system(size: 60))
                     }
@@ -57,10 +48,10 @@ struct RoadMapView: View {
                 
                 // Bottone 2
                 NavigationLink {
-                    ArgomentoView(arg: buttonTwo!)
+                    ArgomentoView(argomento: buttonTwo)
                 } label: {
                     HStack {
-                        Text("\(keys[1])")
+                        Text(buttonTwo.number)
                             .padding(50)
                             .font(.system(size: 60))
                     }
@@ -79,12 +70,12 @@ struct RoadMapView: View {
                 )
                 .offset(x: 110, y: 55)
                 
-                // Bottone 5
+                // Bottone 3
                 NavigationLink {
-                    ArgomentoView(arg: buttonThree!)
+                    ArgomentoView(argomento: buttonThree)
                 } label: {
                     HStack {
-                        Text("\(keys[2])")
+                        Text(buttonThree.number)
                             .padding(50)
                             .font(.system(size: 60))
                     }

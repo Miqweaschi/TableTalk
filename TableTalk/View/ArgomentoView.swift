@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ArgomentoView: View {
-    let arg: String
+    let argomento: Argomento
     
     var body: some View {
         // Qui gestiremo il singolo argomento passato in RoadMapView()
-        Text(arg)
+        Text(argomento.content)
     }
 }
