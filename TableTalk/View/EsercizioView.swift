@@ -10,6 +10,8 @@ import SwiftUI
 struct EsercizioView: View {
     let esercizi: Esercizi<EsercizioContent, EsercizioContent>
     @State private var currentIndex: Int = 0
+    @Environment(\.presentationMode) var presentationMode
+    let onComplete: () -> Void
     
     var body: some View {
         VStack {
@@ -30,9 +32,14 @@ struct EsercizioView: View {
                     Text("Non implementato")
                 }
             } else {
-                // In futuro qui metti a true il valore di 'completed' di Argomento
-                Text("Esercizi completati")
-                    .font(.title2)
+                Text("Esercizi completati!")
+                    .font(.title)
+                    .onAppear {
+                        onComplete()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
             }
         }
         .padding()

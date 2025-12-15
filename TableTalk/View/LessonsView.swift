@@ -36,7 +36,7 @@ struct LessonsView: View {
                             NavigationLink{
                                 
                                 // Passiamo la lezione i-esima alla RMW()
-                                RoadMapView(lesson: lesson)
+                                RoadMapView(lesson: lesson, lessonIndex: 1, model: model)
                             } label: {
                                 HStack {
                                     Text(lesson.number)

@@ -4,6 +4,8 @@ import UIKit
 
 struct RoadMapView: View {
     let lesson: Lesson
+    let lessonIndex: Int
+    @ObservedObject var model: Model
     
     var body: some View {
         ZStack{
@@ -27,13 +29,20 @@ struct RoadMapView: View {
                 
                 // Bottone 1
                 NavigationLink {
-                    EsercizioView(esercizi: buttonOne.esercizi)
+                    EsercizioView(
+                        esercizi: buttonOne.esercizi,
+                        onComplete: {
+                            markCompleted(lessonIndex: lessonIndex, argIndex: 0)
+                        }
+                    )
                 } label: {
                     HStack {
                         Text(buttonOne.number)
                             .padding(51)
                             .font(.system(size: 60))
+                            .background(buttonOne.completed ? Color.red : Color(.systemGray5))
                     }
+                    
                 }
                 .background(Color(.systemGray5))
                 .clipShape(.circle)
@@ -51,7 +60,12 @@ struct RoadMapView: View {
                 
                 // Bottone 2
                 NavigationLink {
-                    EsercizioView(esercizi: buttonTwo.esercizi)
+                    EsercizioView(
+                        esercizi: buttonTwo.esercizi,
+                        onComplete: {
+                            markCompleted(lessonIndex: lessonIndex, argIndex: 0)
+                        }
+                    )
                 } label: {
                     HStack {
                         Text(buttonTwo.number)
@@ -75,7 +89,12 @@ struct RoadMapView: View {
                 
                 // Bottone 3
                 NavigationLink {
-                    EsercizioView(esercizi: buttonThree.esercizi)
+                    EsercizioView(
+                        esercizi: buttonThree.esercizi,
+                        onComplete: {
+                            markCompleted(lessonIndex: lessonIndex, argIndex: 0)
+                        }
+                    )
                 } label: {
                     HStack {
                         Text(buttonThree.number)
@@ -98,6 +117,10 @@ struct RoadMapView: View {
                 .offset(x:-110, y: 100)
             }
         }
+    }
+    
+    private func markCompleted(lessonIndex: Int, argIndex: Int) {
+        model.lessonsList[lessonIndex].argomenti.items[argIndex].completed = true
     }
 }
 

@@ -121,7 +121,7 @@ class Model: ObservableObject {
     let argsL1: Argomenti
     
     // Lista lezioni
-    let lessonsList: [Lesson]
+    @Published var lessonsList: [Lesson]
     
     init() {
         self.argsL1 = Argomenti(items: [
