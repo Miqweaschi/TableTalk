@@ -21,16 +21,31 @@ struct Utente {
 struct Lesson : Hashable {
     var title: String
     var number: String
-    var argomenti: [Int:String]
+   // var argomenti: [Int:String]
+    var argomenti : Argomenti
     var id = UUID()
     
     init(title: String = "",
          number: String = "1",
-         argomenti: [Int:String] = [1: ""]) {
+         argomenti : Argomenti = Argomenti(number: "", title: "1", execute: false)) {
         self.title = title
         self.number = number
         self.argomenti = argomenti
     }
+}
+
+struct Argomenti : Hashable {
+    
+    var number : String
+    var title : String
+    var execute : Bool
+    
+    init (number: String = "", title: String="1", execute: Bool = false) {
+        self.number = number
+        self.title = title
+        self.execute = execute
+    }
+    
 }
 
 class Model : ObservableObject {
