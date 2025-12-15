@@ -37,7 +37,8 @@ class Model : ObservableObject {
     // argomenti lezione 1
     static let argsL1: [Int:String] = [
         1: "Saluti iniziali",
-        2: "Saluti finali"
+        2: "Saluti finali",
+        3: "Esercizi finali"
     ]
 
     // lessonList.lezione_specifica.argomenti
