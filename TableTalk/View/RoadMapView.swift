@@ -8,6 +8,8 @@ struct RoadMapView: View {
     var body: some View {
         
         ZStack{
+            
+            
             switch lesson.number{
             case "1":
                 Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
@@ -41,6 +43,7 @@ struct RoadMapView: View {
                 }
                 .background(Color(.systemGray5))
                 .clipShape(.circle)
+                .offset(x:-104, y: -39)
                 
                 // Bottone 2
                 NavigationLink {
