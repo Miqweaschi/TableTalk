@@ -8,8 +8,15 @@ struct RoadMapView: View {
     var body: some View {
         
         ZStack{
-            
-            Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
+            switch lesson.number{
+            case "1":
+                Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
+            case "2":
+                Image("RoadMap1ok").resizable().edgesIgnoringSafeArea(.vertical)
+            default:
+                Image("RoadMap2ok").resizable().edgesIgnoringSafeArea(.vertical)
+            }
+           // Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
             NavigationStack {
                 
                 // Per ogni RoadMap i bottoni saranno sempre 3

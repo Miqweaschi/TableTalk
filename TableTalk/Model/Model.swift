@@ -40,15 +40,46 @@ class Model : ObservableObject {
         2: "Saluti finali",
         3: "Esercizi finali"
     ]
+    
+    static let argsL2: [Int:String] = [
+        1: "Saluti iniziali",
+        2: "Saluti finali",
+        3: "Esercizi finali"
+    ]
+    static let argsL3: [Int:String] = [
+        1: "Saluti iniziali",
+        2: "Saluti finali",
+        3: "Esercizi finali"
+    ]
+    
+    static let argsL4: [Int:String] = [
+        1: "Saluti iniziali",
+        2: "Saluti finali",
+        3: "Esercizi finali"
+    ]
+    
+    static let argsL5: [Int:String] = [
+        1: "Saluti iniziali",
+        2: "Saluti finali",
+        3: "Esercizi finali"
+    ]
+    
+    static let argsL6: [Int:String] = [
+        1: "Saluti iniziali",
+        2: "Saluti finali",
+        3: "Esercizi finali"
+    ]
+    
+    
 
     // lessonList.lezione_specifica.argomenti
     // add here new lessons
     let lessonsList = [
         Lesson(title: "Welcome", number: "1", argomenti: argsL1),
-        Lesson(title: "Numbers", number: "2"),
-        Lesson(title: "Kitchen", number: "3"),
-        Lesson(title: "Ingredients", number: "4"),
-        Lesson(title: "Advanced", number: "5"),
-        Lesson(title: "Advanced", number: "6"),
+        Lesson(title: "Numbers", number: "2",argomenti: argsL2),
+        Lesson(title: "Kitchen", number: "3",argomenti: argsL3),
+        Lesson(title: "Ingredients", number: "4",argomenti: argsL4),
+        Lesson(title: "Advanced", number: "5",argomenti: argsL5),
+        Lesson(title: "Advanced", number: "6",argomenti: argsL6),
     ]
 }
