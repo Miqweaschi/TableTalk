@@ -5,203 +5,151 @@ struct SentenceDragExerciseView: View {
     let esercizi: [Esercizio<EsercizioContent, EsercizioContent>]
     let onCorrect: () -> Void
     
-    @State private var currentIndex = 0
-    @State private var droppedWords: [Int: String] = [:]
-    @State private var availableWords: [String] = []
+    @State private var index = 0
+    @State private var dropped: [Int: String] = [:]
+    @State private var pool: [String] = []
     @Environment(\.dismiss) var dismiss
+    
+    // Costanti di stile
+    let mainColor = Color(red: 182/255, green: 23/255, blue: 45/255)
 
     var body: some View {
-        VStack(spacing: 30) {
-            // --- BARRA DI PROGRESSO (Stile MatchingExerciseView) ---
-            VStack(spacing: 6) {
-                ProgressView(value: Double(currentIndex + 1), total: Double(esercizi.count))
-                    .tint(Color(red: 182/255, green: 23/255, blue: 45/255))
-                    .padding(.horizontal)
-                Text("Esercizio \(currentIndex + 1) di \(esercizi.count)")
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-            }
-            .padding(.top)
+        VStack(spacing: 20) {
+            // Header
+            ProgressView(value: Double(index + 1), total: Double(esercizi.count))
+                .tint(mainColor).padding()
+            
+            Text("Completa la frase").font(.title2).bold()
 
-            Text("Completa la frase")
-                .font(.title2)
-                .bold()
-
-            if currentIndex < esercizi.count {
-                let attuale = esercizi[currentIndex]
-
-                VStack(spacing: 40) {
-                    // --- AREA DELLA FRASE ---
-                    // --- AREA DELLA FRASE ---
-                    renderSentence(attuale.questionText, attuale: attuale)
-                        .padding(25)
-                        .frame(maxWidth: .infinity, alignment: .leading) // <--- AGGIUNGI QUESTO
-                        .background(Color.white)
-                        .cornerRadius(15)
-                        .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
-                        .padding(.horizontal) // <--- AGGIUNGI QUESTO: evita che il box bianco tocchi i bordi del telefonohadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
-
-                    // --- AREA PAROLE IN COLONNA ---
-                    VStack(spacing: 15) {
-                        Text("TRASCINA LE ETICHETTE").font(.subheadline).foregroundColor(.secondary)
-                        
-                        // Usiamo VStack per metterle una sotto l'altra
-                        VStack(spacing: 12) {
-                            ForEach(availableWords, id: \.self) { parola in
-                                if !droppedWords.values.contains(parola) {
-                                    Text(parola)
-                                        .bold()
-                                        .frame(maxWidth: 200) // Dimensione fissa per eleganza
-                                        .padding(.vertical, 12)
-                                        .padding(.horizontal, 20)
-                                        .background(Color(red: 182/255, green: 23/255, blue: 45/255))
-                                        .foregroundColor(.white)
-                                        .cornerRadius(10)
-                                        .onDrag { NSItemProvider(object: parola as NSString) }
-                                }
-                            }
+            if index < esercizi.count {
+                let current = esercizi[index]
+                
+                // Area Frase
+                ScrollView {
+                    renderSentence(current)
+                        .padding().frame(maxWidth: .infinity)
+                        .background(.white).cornerRadius(16).shadow(radius: 5)
+                        .padding(.horizontal)
+                }
+                
+                Spacer()
+                
+                // Area Parole (Pool)
+                VStack(spacing: 12) {
+                    ForEach(pool, id: \.self) { word in
+                        if !dropped.values.contains(word) {
+                            WordCard(text: word, color: mainColor)
                         }
                     }
                 }
-                .padding(.horizontal)
-                .id(currentIndex)
+                .padding(.horizontal, 40).padding(.bottom, 20)
+                .animation(.spring(), value: dropped) // Aggiunge fluidità
             }
-            
-            Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(red: 255/255, green: 247/255, blue: 238/255))
-        .onAppear(perform: setupCurrentExercise)
+        .onAppear(perform: setup)
     }
-
+    
     @ViewBuilder
-    private func renderSentence(_ sentence: String, attuale: Esercizio<EsercizioContent, EsercizioContent>) -> some View {
-        let parti = sentence.components(separatedBy: "___")
+    func renderSentence(_ ex: Esercizio<EsercizioContent, EsercizioContent>) -> some View {
+        let parts = ex.questionText.components(separatedBy: "___")
+        FlowLayout(spacing: 4) {
+            ForEach(parts.indices, id: \.self) { i in
+                ForEach(parts[i].components(separatedBy: " "), id: \.self) { word in
+                    if !word.isEmpty { Text(word).font(.title3).fixedSize() }
+                }
+                if i < parts.count - 1 {
+                    DropZone(word: dropped[i]) { handleDrop($0, i, ex) }
+                }
+            }
+        }
+    }
+    
+    func setup() {
+        dropped.removeAll()
+        // Logica compatta: unisce risposte corrette e distrattori, pulisce spazi e mischia
+        let parts = esercizi[index].answerText.components(separatedBy: "|")
+        let allWords = parts.joined(separator: ",").components(separatedBy: ",")
+        pool = allWords.map { $0.trimmingCharacters(in: .whitespaces) }.shuffled()
+    }
+    
+    func handleDrop(_ text: String, _ i: Int, _ ex: Esercizio<EsercizioContent, EsercizioContent>) {
+        let correctList = ex.answerText.components(separatedBy: "|")[0].components(separatedBy: ",")
+        guard i < correctList.count else { return }
         
-        // Prendiamo la larghezza dello schermo meno i margini
-        let maxWidth = UIScreen.main.bounds.width - 80
-
-        FlowLayout(spacing: 8) {
-            ForEach(0..<parti.count, id: \.self) { index in
-                // Frammento di testo
-                Text(parti[index])
-                    .font(.title3)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: maxWidth, alignment: .leading) // <--- OBBLIGA IL WRAP
-
-                if index < parti.count - 1 {
-                    // Box di drop
-                    dropBox(index: index, attuale: attuale)
-                }
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func dropBox(index: Int, attuale: Esercizio<EsercizioContent, EsercizioContent>) -> some View {
-        ZStack {
-            let word = droppedWords[index]
-            RoundedRectangle(cornerRadius: 10)
-                .fill(word == nil ? Color.black.opacity(0.05) : Color.green.opacity(0.1) )
-                .frame(width: 100, height: 40)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(word == nil ? Color.gray.opacity(0.3) : Color.green, lineWidth: 2)
-                )
+        let cleanDrop = text.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let cleanCorrect = correctList[i].trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        
+        if cleanDrop == cleanCorrect {
+            dropped[i] = text
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             
-            if let word = word {
-                Text(word.uppercased()).font(.caption.bold()).foregroundColor(.green)
-            }
-        }
-        .onDrop(of: [UTType.text], isTargeted: nil) { providers in
-            handleDrop(providers: providers, spaceIndex: index, currentEx: attuale)
-        }
-    }
-    // Le funzioni setupCurrentExercise, handleDrop e nextExercise rimangono uguali a prima
-    private func setupCurrentExercise() {
-        droppedWords = [:]
-        let attuale = esercizi[currentIndex]
-        let parti = attuale.answerText.components(separatedBy: "|")
-        let corrette = parti[0].components(separatedBy: ",").map { $0.trimmingCharacters(in: .whitespaces) }
-        var tutte = corrette
-        if parti.count > 1 {
-            let distrattori = parti[1].components(separatedBy: ",").map { $0.trimmingCharacters(in: .whitespaces) }
-            tutte.append(contentsOf: distrattori)
-        }
-        self.availableWords = tutte.shuffled()
-    }
-
-    private func handleDrop(providers: [NSItemProvider], spaceIndex: Int, currentEx: Esercizio<EsercizioContent, EsercizioContent>) -> Bool {
-        guard let provider = providers.first else { return false }
-        provider.loadObject(ofClass: NSString.self) { (string, _) in
-            guard let testo = string as? String else { return }
-            DispatchQueue.main.async {
-                let parti = currentEx.answerText.components(separatedBy: "|")
-                let risposteCorrette = parti[0].components(separatedBy: ",").map { $0.trimmingCharacters(in: .whitespaces) }
-                if spaceIndex < risposteCorrette.count && testo == risposteCorrette[spaceIndex] {
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred() // Vibrazione
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                        droppedWords[spaceIndex] = testo
-                    }
-                    if droppedWords.count == risposteCorrette.count {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { nextExercise() }
-                    }
+            if dropped.count == correctList.count {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    if index + 1 < esercizi.count { index += 1; setup() }
+                    else { onCorrect(); dismiss() }
                 }
             }
-        }
-        return true
-    }
-
-    private func nextExercise() {
-        if currentIndex + 1 < esercizi.count {
-            currentIndex += 1
-            setupCurrentExercise()
         } else {
-            onCorrect()
-            dismiss()
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
     }
 }
 
-// --- FLOWLAYOUT (Invariato) ---
+// MARK: - Subviews
+struct WordCard: View {
+    let text: String
+    let color: Color
+    var body: some View {
+        Text(text).font(.headline).bold().foregroundColor(.white)
+            .padding(.vertical, 12).frame(maxWidth: .infinity)
+            .background(RoundedRectangle(cornerRadius: 12).fill(color).shadow(radius: 2, y: 2))
+            .onDrag { NSItemProvider(object: text as NSString) }
+    }
+}
+
+struct DropZone: View {
+    let word: String?
+    let onDrop: (String) -> Void
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 8)
+                .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [6]))
+                .foregroundColor(word == nil ? .gray.opacity(0.5) : .green)
+                .background(word != nil ? Color.green.opacity(0.1) : .clear)
+            if let w = word { Text(w).bold().foregroundColor(.green).padding(.horizontal, 8) }
+        }
+        .frame(minWidth: 80, minHeight: 40).fixedSize()
+        .contentShape(Rectangle())
+        .onDrop(of: [UTType.plainText], isTargeted: nil) { providers in
+            providers.first?.loadObject(ofClass: NSString.self) { s, _ in
+                if let str = s as? String { DispatchQueue.main.async { onDrop(str) } }
+            }
+            return true
+        }
+    }
+}
+
 struct FlowLayout: Layout {
     var spacing: CGFloat
-    
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let containerWidth = proposal.width ?? UIScreen.main.bounds.width
-        var totalHeight: CGFloat = 0
-        var currentRowWidth: CGFloat = 0
-        var currentRowHeight: CGFloat = 0
-        
-        for subview in subviews {
-            let size = subview.sizeThatFits(.unspecified)
-            if currentRowWidth + size.width > containerWidth {
-                totalHeight += currentRowHeight + spacing
-                currentRowWidth = size.width + spacing
-                currentRowHeight = size.height
-            } else {
-                currentRowWidth += size.width + spacing
-                currentRowHeight = max(currentRowHeight, size.height)
-            }
+        let w = proposal.width ?? (UIScreen.main.bounds.width - 60)
+        var h: CGFloat = 0, rW: CGFloat = 0, rH: CGFloat = 0
+        for v in subviews {
+            let s = v.sizeThatFits(.unspecified)
+            if rW + s.width > w { h += rH + spacing; rW = s.width + spacing; rH = s.height }
+            else { rW += s.width + spacing; rH = max(rH, s.height) }
         }
-        return CGSize(width: containerWidth, height: totalHeight + currentRowHeight)
+        return CGSize(width: w, height: h + rH)
     }
-    
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        var x = bounds.minX
-        var y = bounds.minY
-        var currentRowHeight: CGFloat = 0
-        
-        for subview in subviews {
-            let size = subview.sizeThatFits(.unspecified)
-            if x + size.width > bounds.maxX {
-                x = bounds.minX
-                y += currentRowHeight + spacing
-                currentRowHeight = 0
-            }
-            subview.place(at: CGPoint(x: x, y: y), proposal: .unspecified)
-            x += size.width + spacing
-            currentRowHeight = max(currentRowHeight, size.height)
+        var x = bounds.minX, y = bounds.minY, rH: CGFloat = 0
+        for v in subviews {
+            let s = v.sizeThatFits(.unspecified)
+            if x + s.width > bounds.maxX { x = bounds.minX; y += rH + spacing; rH = 0 }
+            v.place(at: CGPoint(x: x, y: y), proposal: .unspecified)
+            x += s.width + spacing; rH = max(rH, s.height)
         }
     }
 }

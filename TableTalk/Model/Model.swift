@@ -119,28 +119,27 @@
     class Model: ObservableObject {
         // 10 esercizi relativi al primo bottone della prima lezione
         static let l1b2: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
-            // Prima del '|' le risposte giuste, dopo il '|' i distrattori
+            // --- I TUOI 3 ESERCIZI ORIGINALI ---
             Esercizio(.text("This caprese salad is made of ___ and ___"), .text("Tomato, Mozzarella | Ham, Bread")),
+            
             Esercizio(.text("The pizza ___ mushrooms and cheese"), .text("has | is, are")),
-            Esercizio(.text("Can I add ___ and ___ to my salad?"), .text("Oil, Salt | Sugar, Milk"))
+            
+            Esercizio(.text("Can I add ___ and ___ to my salad?"), .text("Oil, Salt | Sugar, Milk")),
+
+            Esercizio(.text("Carbonara pasta is made with ___ and ___"), .text("Eggs, Bacon | Fish, Tomato")),
+            
+            Esercizio(.text("Excuse me, I need a ___ for my soup."), .text("Spoon | Fork, Knife")),
+            
+            Esercizio(.text("Would you like still or ___ water?"), .text("Sparkling | Spicy, Sweet")),
+            
+            Esercizio(.text("I would like my steak ___, please."), .text("Medium | Raw, Blue")),
+            
+            Esercizio(.text("I will have a glass of ___ wine with the meat."), .text("Red | Green, Salty")),
+            
+            Esercizio(.text("Tiramisu is made of ___ and ___"), .text("Coffee, Mascarpone | Tea, Cheddar")),
+            
+            Esercizio(.text("The burger comes with a side of ___"), .text("Fries | Soup, Pasta"))
         ])
-        
-        // 10 esercizi relativi al primo bottone della prima lezione
-        static let l2b2: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
-            // Prima del '|' le risposte giuste, dopo il '|' i distrattori
-            Esercizio(.text("I'm allergic to ___, so I can't eat bread, pasta or pizza."), .text("Gluten | Nickel, Soy")),
-            Esercizio(.text("She has a ___ allergy, so she can't drink milk."), .text("Dairy | Peanut, Fish")),
-            Esercizio(.text("I have a ___ intolerance, so I can't drink milk."), .text("Lactose | Sugar, Peanut")),
-            Esercizio(.text("He has a ___ allergy, so he shouldn't eat almonds or walnuts."), .text("Nut | Shellfish, Egg")),
-            Esercizio(.text("I have a ___ allergy, so I can't eat prawns or lobster."), .text("Shellfish | Dairy, Wheat")),
-            Esercizio(.text("They are allergic to ___, so they use honey instead of sugar."), .text("Fructose | Caffeine, Gluten")),
-            Esercizio(.text("She has an ___ allergy, so she avoids mayonnaise and omelettes."), .text("Egg | Soy, Nut")),
-            Esercizio(.text("My brother is allergic to ___, so he never eats tofu or edamame."), .text("Soy | Nickel, Dairy")),
-            Esercizio(.text("Since I have a ___ allergy, I always check the ingredients in chocolate for traces of legumes."), .text("Peanut | Fish, Wheat")),
-            Esercizio(.text("He is allergic to ___, so he can't eat salmon or tuna."), .text("Fish | Shellfish, Egg")),
-            Esercizio(.text("I have a ___ intolerance, so I always buy caffeine-free coffee."), .text("Caffeine | Gluten, Dairy"))
-        ])
-        
         
         // Lezione1Bottone2; immagine con risposta
         static let l1b1_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
@@ -178,19 +177,53 @@
         ])
         
         
+        // 10 esercizi relativi al primo bottone della prima lezione
+        static let l2b2: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
+            // Prima del '|' le risposte giuste, dopo il '|' i distrattori
+            Esercizio(.text("I'm allergic to ___, so I can't eat bread, pasta or pizza."), .text("Gluten | Nickel, Soy")),
+            Esercizio(.text("She has a ___ allergy, so she can't drink milk."), .text("Dairy | Peanut, Fish")),
+            Esercizio(.text("I have a ___ intolerance, so I can't drink milk."), .text("Lactose | Sugar, Peanut")),
+            Esercizio(.text("He has a ___ allergy, so he shouldn't eat almonds or walnuts."), .text("Nut | Shellfish, Egg")),
+            Esercizio(.text("I have a ___ allergy, so I can't eat prawns or lobster."), .text("Shellfish | Dairy, Wheat")),
+            Esercizio(.text("They are allergic to ___, so they use honey instead of sugar."), .text("Fructose | Caffeine, Gluten")),
+            Esercizio(.text("She has an ___ allergy, so she avoids mayonnaise and omelettes."), .text("Egg | Soy, Nut")),
+            Esercizio(.text("My brother is allergic to ___, so he never eats tofu or edamame."), .text("Soy | Nickel, Dairy")),
+            Esercizio(.text("Since I have a ___ allergy, I always check the ingredients in chocolate for traces of legumes."), .text("Peanut | Fish, Wheat")),
+            Esercizio(.text("He is allergic to ___, so he can't eat salmon or tuna."), .text("Fish | Shellfish, Egg")),
+        ])
+        
 
-        static let mixEsercizi: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
-            // Tipo 1: Domanda testuale (Scrittura/Completamento)
-            Esercizio(.text("How do you say 'Il conto' in English?"), .text("The bill")),
+        static let mixEserciziL1: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
             
-            // Tipo 2: Immagine (Drag & Drop)
+            Esercizio(.text("How do you say 'aglio' in English?"), .text("Garlic")),
+            
+            
             Esercizio(.imageAsset(path: "Oil"), .text("Oil")),
             
-            // Tipo 1: Domanda testuale
-            Esercizio(.text("Is the pizza ___? (calda)"), .text("hot")),
             
-            // Tipo 2: Immagine
-            Esercizio(.imageAsset(path: "Tomatoes"), .text("Tomatoes"))
+            Esercizio(.text("this pizza have ___? (funghi)"), .text("Mushrooms")),
+            
+            
+            Esercizio(.imageAsset(path: "Tomatoes"), .text("Tomatoes")),
+            
+            
+            Esercizio(.text("How do you say 'pane' in English?"), .text("Bread")),
+            
+            
+            Esercizio(.imageAsset(path: "cheese"), .text("Mozzarella")),
+            
+            
+            Esercizio(.text("How do you say 'pepe' in English?"), .text("Pepper")),
+            
+            
+            Esercizio(.imageAsset(path: "Carrots"), .text("Carrots")),
+
+            
+            Esercizio(.text("We have fresh ___ of the day. (pesce)"), .text("Fish")),
+
+        
+            Esercizio(.imageAsset(path: "Meat"), .text("Meat"))
+
         ])
         
          
@@ -209,7 +242,7 @@
                 
                 Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l1b2),
             
-                Argomento(number: "3", content: "Test finale", completed: false, esercizi: Model.mixEsercizi),
+                Argomento(number: "3", content: "Test finale", completed: false, esercizi: Model.mixEserciziL1),
             ])
             
             
@@ -218,7 +251,7 @@
                 
                 Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l2b2),
                 
-                Argomento(number: "3", content: "Test finale", completed: false, esercizi: Model.mixEsercizi),
+                Argomento(number: "3", content: "Test finale", completed: false, esercizi: Model.mixEserciziL1),
             ])
             
             
@@ -244,6 +277,33 @@
         @Published var totalProgress: Double = 0.0
     }
         
-        
+// Aggiungi queste estensioni per evitare gli "switch" o "if case" nelle View
+extension Esercizio {
+    // Restituisce il nome dell'immagine se presente, altrimenti stringa vuota
+    var imageName: String {
+        if let content = question as? EsercizioContent, case .imageAsset(let path) = content {
+            return path
+        }
+        return ""
+    }
+    
+    // Restituisce il testo della risposta pulito
+    var textAnswer: String {
+        if let content = answer as? EsercizioContent, case .text(let t) = content {
+            return t
+        }
+        return ""
+    }
+}
+
+extension Esercizio {
+    // Se è una domanda di testo, mi ridà la stringa, altrimenti nil
+    var questionString: String? {
+        if let content = question as? EsercizioContent, case .text(let t) = content {
+            return t
+        }
+        return nil
+    }
+}
 
 
