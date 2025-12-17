@@ -125,20 +125,20 @@ class Model: ObservableObject {
     
     // Lezione1Bottone2; immagine con risposta
     static let l1b1_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
-        Esercizio(.imageAsset(path: "path immagine carne"), .text("carne"), done: false),
+        Esercizio(.imageAsset(path: "Oil"), .text("Oil"), done: false),
+        Esercizio(.imageAsset(path: "Salad"), .text("Salad"), done: false),
         
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
+        Esercizio(.imageAsset(path: "Cucumbers"), .text("Cucumbers"), done: false),
+        Esercizio(.imageAsset(path: "Meat"), .text("Meat"), done: false),
         
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
+        Esercizio(.imageAsset(path: "Salt"), .text("Salt"), done: false),
+        Esercizio(.imageAsset(path: "Bread"), .text("Bread"), done: false),
         
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
+        Esercizio(.imageAsset(path: "Carrots"), .text("Carrots"), done: false),
+        Esercizio(.imageAsset(path: "cheese"), .text("Cheese"), done: false),
         
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
+        Esercizio(.imageAsset(path: "Mushrooms"), .text("Mushrooms"), done: false),
+        Esercizio(.imageAsset(path: "Tomatoes"), .text("Tomatoes"), done: false),
     ])
     
     static let l1b2_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
