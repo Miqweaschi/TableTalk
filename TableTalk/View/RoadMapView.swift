@@ -97,13 +97,15 @@ struct RoadMapView: View {
             }
             // Logica per Lezione 2
             else if lesson.number == "2" {
-                if arg1 { Image("RoadMap2_step1").resizable().ignoresSafeArea() }
-                else { Image("RoadMap2").resizable().ignoresSafeArea() }
+                if arg1 && arg2 && arg3 {
+                    Image("RoadMap2_all_ok").resizable().ignoresSafeArea()
+                } else if arg1 {
+                    Image("RoadMap1_1_ok").resizable().ignoresSafeArea()
+                } else {
+                    Image("RoadMap2").resizable().ignoresSafeArea()
+                }
             }
-            // Sfondo di default
-            else {
-                Image("RoadMap2ok").resizable().ignoresSafeArea()
-            }
+
         }
     
     // Funzione helper per le etichette dei bottoni

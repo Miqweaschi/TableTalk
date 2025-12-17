@@ -125,6 +125,14 @@
             Esercizio(.text("Can I add ___ and ___ to my salad?"), .text("Oil, Salt | Sugar, Milk"))
         ])
         
+        // 10 esercizi relativi al primo bottone della prima lezione
+        static let l2b2: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
+            // Prima del '|' le risposte giuste, dopo il '|' i distrattori
+            Esercizio(.text("This caprese salad is made of ___ and ___"), .text("Tomato, Mozzarella | Ham, Bread")),
+            Esercizio(.text("The pizza ___ mushrooms and cheese"), .text("has | is, are")),
+            Esercizio(.text("Can I add ___ and ___ to my salad?"), .text("Oil, Salt | Sugar, Milk"))
+        ])
+        
         
         // Lezione1Bottone2; immagine con risposta
         static let l1b1_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
@@ -144,7 +152,7 @@
             Esercizio(.imageAsset(path: "Tomatoes"), .text("Tomatoes"), done: false),
         ])
         
-        static let l1b2_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
+        static let l2b1_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
             Esercizio(.imageAsset(path: "Oil"), .text("Oil"), done: false),
             Esercizio(.imageAsset(path: "Salad"), .text("Salad"), done: false),
             
@@ -161,16 +169,7 @@
             Esercizio(.imageAsset(path: "Tomatoes"), .text("Tomatoes"), done: false),
         ])
         
-        static let l1b3_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
-            // 1. Scrittura
-            Esercizio(.text("Come si dice 'Ciao' in inglese?"), .text("Hello")),
-            // 2. Drag & Drop con Scelte
-            Esercizio(.imageAsset(path: "pasta"), .text("Pasta")),
-            // 3. Scrittura
-            Esercizio(.text("Traduci: 'Il ragazzo'"), .text("The boy")),
-            // 4. Drag & Drop con Scelte
-            Esercizio(.imageAsset(path: "mela"), .text("Apple"))
-        ])
+        
 
         static let mixEsercizi: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
             // Tipo 1: Domanda testuale (Scrittura/Completamento)
@@ -199,28 +198,19 @@
             // In Model.swift -> init()
             self.argsL1 = Argomenti(items: [
                 Argomento(number: "1", content: "Saluti iniziali", completed: false, esercizi: Model.l1b1_drag),
-                Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l1b2),
                 
-                // QUI CREIAMO IL MIX PER IL BOTTONE 3
-                          Argomento(number: "3", content: "Test finale", completed: false, esercizi: Model.l1b3_drag),
+                Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l1b2),
+            
+                Argomento(number: "3", content: "Test finale", completed: false, esercizi: Model.mixEsercizi),
             ])
             
             
             self.argsL2 = Argomenti(items: [
-                Argomento(number: "1", content: "Saluti ", completed: false, esercizi: Model.l1b2),
-                Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l1b2_drag),
+                Argomento(number: "1", content: "Saluti ", completed: false, esercizi: Model.l2b1_drag),
                 
-                // QUI CREIAMO IL MIX PER IL BOTTONE 3
-                Argomento(number: "3", content: "Test finale", completed: false, esercizi: Esercizi(items: [
-                    // 1. Scrittura
-                    Esercizio(.text("Come si dice 'Ciao' in inglese?"), .text("Hello")),
-                    // 2. Drag & Drop con Scelte
-                    Esercizio(.imageAsset(path: "pasta"), .text("Pasta")),
-                    // 3. Scrittura
-                    Esercizio(.text("Traduci: 'Il ragazzo'"), .text("The boy")),
-                    // 4. Drag & Drop con Scelte
-                    Esercizio(.imageAsset(path: "mela"), .text("Apple"))
-                ]))
+                Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l2b2),
+                
+                Argomento(number: "3", content: "Test finale", completed: false, esercizi: Model.mixEsercizi),
             ])
             
             
@@ -229,10 +219,10 @@
             self.lessonsList = [
                 Lesson(title: "Menù", number: "1", argomenti: self.argsL1),
                 Lesson(title: "Numbers", number: "2", argomenti: self.argsL2),
-                //  Lesson(title: "Kitchen", number: "3", argomenti: self.argsL1),
-                //  Lesson(title: "Ingredients", number: "4", argomenti: self.argsL1),
-                // Lesson(title: "Advanced", number: "5", argomenti: self.argsL1),
-                // Lesson(title: "Advanced", number: "6", argomenti: self.argsL1)
+                Lesson(title: "Kitchen", number: "3", argomenti: self.argsL1),
+                Lesson(title: "Ingredients", number: "4", argomenti: self.argsL1),
+                Lesson(title: "Advanced", number: "5", argomenti: self.argsL1),
+                Lesson(title: "Advanced", number: "6", argomenti: self.argsL1)
             ]
         }
         
