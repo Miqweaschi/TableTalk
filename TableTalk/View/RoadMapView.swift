@@ -15,7 +15,7 @@ struct RoadMapView: View {
             
             ZStack {
                 // Sfondo dinamico
-                backgroundImage(for: currentLesson.number)
+                backgroundImage(for: currentLesson)
                 
                 NavigationStack {
                     // BOTTONE 1: Usa EsercizioView (passa la struct Esercizi intera)
@@ -32,7 +32,7 @@ struct RoadMapView: View {
                     .overlay(
                         Circle().stroke(Color(red: 182/255, green: 23/255, blue: 45/255), lineWidth: 4)
                     )
-                    .offset(x: -104, y: -28)
+                    .offset(x: -97, y: -33)
                     
                     // BOTTONE 2: Usa MatchingExerciseView (passa l'ARRAY .items)
                     NavigationLink {
@@ -48,7 +48,7 @@ struct RoadMapView: View {
                     .overlay(
                         Circle().stroke(Color(red: 182/255, green: 23/255, blue: 45/255), lineWidth: 4)
                     )
-                    .offset(x: 110, y: 55)
+                    .offset(x: 105, y: 44)
                     
                     // BOTTONE 3: Usa MixedExerciseView (passa l'ARRAY .items)
                     NavigationLink {
@@ -64,7 +64,7 @@ struct RoadMapView: View {
                     .overlay(
                         Circle().stroke(Color(red: 182/255, green: 23/255, blue: 45/255), lineWidth: 4)
                     )
-                    .offset(x: -110, y: 100)
+                    .offset(x: -101, y: 88)
                 }
                 .background(Color.clear)
             }
@@ -73,13 +73,33 @@ struct RoadMapView: View {
     
     // Funzione per lo sfondo
     @ViewBuilder
-    private func backgroundImage(for number: String) -> some View {
-        switch number {
-        case "1": Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
-        case "2": Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
-        default: Image("RoadMap2ok").resizable().edgesIgnoringSafeArea(.vertical)
+        private func backgroundImage(for lesson: Lesson) -> some View {
+            let arg1 = lesson.argomenti.items[0].completed
+            let arg2 = lesson.argomenti.items[1].completed
+            let arg3 = lesson.argomenti.items[2].completed
+            
+            // Logica per Lezione 1
+            if lesson.number == "1" {
+                if arg1 && arg2 && arg3 {
+                    Image("RoadMap1_all_ok").resizable().ignoresSafeArea()
+                } else if arg1 && arg2 {
+                    Image("RoadMap1_2_ok").resizable().ignoresSafeArea()
+                } else if arg1 {
+                    Image("RoadMap1_1_ok").resizable().ignoresSafeArea()
+                } else {
+                    Image("RoadMap1").resizable().ignoresSafeArea()
+                }
+            }
+            // Logica per Lezione 2
+            else if lesson.number == "2" {
+                if arg1 { Image("RoadMap2_step1").resizable().ignoresSafeArea() }
+                else { Image("RoadMap2").resizable().ignoresSafeArea() }
+            }
+            // Sfondo di default
+            else {
+                Image("RoadMap2ok").resizable().ignoresSafeArea()
+            }
         }
-    }
     
     // Funzione helper per le etichette dei bottoni
     @ViewBuilder
@@ -87,7 +107,7 @@ struct RoadMapView: View {
         let arg = model.lessonsList[lessonIndex].argomenti.items[argIndex]
         Text(arg.number)
             .font(.system(size: 60))
-            .padding(51)
+            .padding(48)
             .foregroundColor(arg.completed ? Color(.systemGray5) : Color(red: 182/255, green: 23/255, blue: 45/255))
     }
     
