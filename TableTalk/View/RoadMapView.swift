@@ -20,10 +20,11 @@ struct RoadMapView: View {
                 NavigationStack {
                     // BOTTONE 1: Usa EsercizioView (passa la struct Esercizi intera)
                     NavigationLink {
-                        EsercizioView(
-                            esercizi: currentLesson.argomenti.items[0].esercizi,
+                        MatchingExerciseView(
+                            esercizi: currentLesson.argomenti.items[0].esercizi.items,
                             onComplete: { markCompleted(lessonIndex: lessonIndex, argIndex: 0) }
                         )
+                        
                     } label: {
                         buttonLabel(argIndex: 0)
                     }
@@ -34,12 +35,16 @@ struct RoadMapView: View {
                     )
                     .offset(x: -97, y: -33)
                     
-                    // BOTTONE 2: Usa MatchingExerciseView (passa l'ARRAY .items)
-                    NavigationLink {
-                        MatchingExerciseView(
-                            esercizi: currentLesson.argomenti.items[1].esercizi.items,
-                            onComplete: { markCompleted(lessonIndex: lessonIndex, argIndex: 1) }
-                        )
+                    // RoadMapView.swift - All'interno del NavigationStack
+
+                    // BOTTONE 2: Passaggio diretto a SentenceDragExerciseView
+                        NavigationLink {
+                            SentenceDragExerciseView(
+                                esercizi: currentLesson.argomenti.items[1].esercizi.items,
+                                onCorrect: {
+                                    markCompleted(lessonIndex: lessonIndex, argIndex: 1)
+                                }
+                            )
                     } label: {
                         buttonLabel(argIndex: 1)
                     }
