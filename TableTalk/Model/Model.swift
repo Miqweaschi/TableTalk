@@ -237,9 +237,9 @@
         }
         
         @Published var simulationDialogue: [DialogueStep] = [
-            DialogueStep(customerLine: "Buongiorno! Avete un tavolo per due?", expectedAnswer: "si"),
-            DialogueStep(customerLine: "Perfetto. Possiamo metterci vicino alla finestra?", expectedAnswer: "certo"),
-            DialogueStep(customerLine: "Grazie! Possiamo ordinare subito?", expectedAnswer: "ecco il menu")
+            DialogueStep(customerLine: "Hello, are you open?", expectedAnswer: "Hello, yes. Welcome!"),
+            DialogueStep(customerLine: "We would lika a table.", expectedAnswer: "For how many?"),
+            DialogueStep(customerLine: "We are four.", expectedAnswer: "Follow me, please")
         ]
         
         // Variabile per tracciare il progresso globale (da usare nella MainHomeView)
