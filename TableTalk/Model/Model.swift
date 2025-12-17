@@ -16,6 +16,7 @@ struct Utente {
     }
 }
 
+
 // Questa struct contiene un singolo esercizio
 struct Esercizio<Q: Hashable, A: Hashable>: Hashable {
     var id = UUID()
@@ -84,6 +85,16 @@ struct Lesson: Hashable, Identifiable {
     }
 }
 
+// Aggiungi questa struct fuori dalla classe nel file Model.swift
+struct DialogueStep: Hashable, Identifiable {
+    let id = UUID()
+    let customerLine: String
+    let expectedAnswer: String
+}
+
+
+    
+
 class Model: ObservableObject {
     // 10 esercizi relativi al primo bottone della prima lezione
     static let l1b1: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
@@ -100,21 +111,21 @@ class Model: ObservableObject {
     ])
     
     // Lezione1Bottone2; immagine con risposta
-    static let l1b2: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
+    static let l1b2_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
         Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
         Esercizio(.imageAsset(path: "path immagine carne"), .text("carne"), done: false),
         
         Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
         
         Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
         
         Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
         
         Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
-        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
     ])
     
     // Varie lezioni
@@ -126,12 +137,12 @@ class Model: ObservableObject {
     init() {
         self.argsL1 = Argomenti(items: [
             Argomento(number: "1", content: "Saluti iniziali", completed: false, esercizi: Model.l1b1),
-            Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l1b2),
+            Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l1b2_drag),
             Argomento(number: "3", content: "Esercizi finali", completed: false)
         ])
         
         self.lessonsList = [
-            Lesson(title: "Welcome", number: "1", argomenti: self.argsL1),
+            Lesson(title: "Welcoming", number: "1", argomenti: self.argsL1),
             Lesson(title: "Numbers", number: "2", argomenti: self.argsL1),
             Lesson(title: "Kitchen", number: "3", argomenti: self.argsL1),
             Lesson(title: "Ingredients", number: "4", argomenti: self.argsL1),
@@ -139,4 +150,14 @@ class Model: ObservableObject {
             Lesson(title: "Advanced", number: "6", argomenti: self.argsL1)
         ]
     }
+    
+    @Published var simulationDialogue: [DialogueStep] = [
+        DialogueStep(customerLine: "Buongiorno! Avete un tavolo per due?", expectedAnswer: "si"),
+        DialogueStep(customerLine: "Perfetto. Possiamo metterci vicino alla finestra?", expectedAnswer: "certo"),
+        DialogueStep(customerLine: "Grazie! Possiamo ordinare subito?", expectedAnswer: "ecco il menu")
+    ]
+    
+    // Variabile per tracciare il progresso globale (da usare nella MainHomeView)
+    @Published var totalProgress: Double = 0.0
 }
+    

@@ -40,9 +40,9 @@ struct RoadMapView: View {
                         .font(.system(size: 60))
                         .padding(51)
                         .foregroundColor(model.lessonsList[lessonIndex].argomenti.items[0].completed
-                                                                 ? Color(.systemGray5)
-                                                                 : Color(r: 182, g: 23, b: 45, opacity: 100))
-            }
+                                         ? Color(.systemGray5)
+                                         : Color(r: 182, g: 23, b: 45, opacity: 100))
+                }
                 .background(
                     model.lessonsList[lessonIndex].argomenti.items[0].completed
                     ? Color(r: 182, g: 23, b: 45, opacity: 100)
@@ -57,12 +57,15 @@ struct RoadMapView: View {
                         )
                 )
                 .offset(x: -104, y: -28)
-
+                
                 
                 // Bottone 2
+                // Bottone 2 nella tua RoadMapView
+                // Bottone 2 (Dinamico e collegato al Model come il Bottone 1)
                 NavigationLink {
-                    EsercizioView(
-                        esercizi: model.lessonsList[lessonIndex].argomenti.items[1].esercizi,
+                    // Passiamo gli esercizi prendendoli dal model tramite l'indice della lezione e dell'argomento
+                    MatchingExerciseView(
+                        esercizi: model.lessonsList[lessonIndex].argomenti.items[1].esercizi.items,
                         onComplete: {
                             markCompleted(lessonIndex: lessonIndex, argIndex: 1)
                         }
@@ -72,24 +75,20 @@ struct RoadMapView: View {
                         .font(.system(size: 60))
                         .padding(51)
                         .foregroundColor(model.lessonsList[lessonIndex].argomenti.items[1].completed
-                                                                 ? Color(.systemGray5)
-                                                                 : Color(r: 182, g: 23, b: 45, opacity: 100))
-
-                    }
+                                         ? Color(.systemGray5)
+                                         : Color(red: 182/255, green: 23/255, blue: 45/255))
+                }
                 .background(
                     model.lessonsList[lessonIndex].argomenti.items[1].completed
-                    ? Color(r: 182, g: 23, b: 45, opacity: 100)
-                    : Color(.systemGray5)
+                    ? Color(red: 182/255, green: 23/255, blue: 45/255) // DIVENTA ROSSO
+                    : Color(.systemGray5)                             // GRIGIO INIZIALE
                 )
-                .clipShape(.circle)
+                .clipShape(Circle())
                 .overlay(
                     Circle()
                         .stroke(
-                            Color.init(r: 182, g: 23, b: 45, opacity: 100),
-                            style: StrokeStyle(
-                                lineWidth: 4,
-                                lineCap: .round
-                            )
+                            Color(red: 182/255, green: 23/255, blue: 45/255),
+                            lineWidth: 4
                         )
                 )
                 .offset(x: 110, y: 55)
@@ -107,14 +106,14 @@ struct RoadMapView: View {
                         .font(.system(size: 60))
                         .padding(51)
                         .foregroundColor(model.lessonsList[lessonIndex].argomenti.items[2].completed
-                                                                 ? Color(.systemGray5)
-                                                                 : Color(r: 182, g: 23, b: 45, opacity: 100))
-}
-            .background(
-                model.lessonsList[lessonIndex].argomenti.items[2].completed
-                ? Color(r: 182, g: 23, b: 45, opacity: 100)
-                : Color(.systemGray5)
-            )
+                                         ? Color(.systemGray5)
+                                         : Color(r: 182, g: 23, b: 45, opacity: 100))
+                }
+                .background(
+                    model.lessonsList[lessonIndex].argomenti.items[2].completed
+                    ? Color(r: 182, g: 23, b: 45, opacity: 100)
+                    : Color(.systemGray5)
+                )
                 .clipShape(.circle)
                 .overlay(
                     Circle()
@@ -134,6 +133,6 @@ struct RoadMapView: View {
     private func markCompleted(lessonIndex: Int, argIndex: Int) {
         model.lessonsList[lessonIndex].argomenti.items[argIndex].completed = true
     }
-
-
-
+    
+    
+}

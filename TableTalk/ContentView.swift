@@ -23,8 +23,7 @@ struct ContentView: View {
                 Label("Lessons", systemImage: "book.closed")
             }
             
-            //SimulationView()
-            MainHomeView()
+            SimulationView()
                 .tabItem {
                 Label("Simulation", systemImage: "play.fill")
             }
