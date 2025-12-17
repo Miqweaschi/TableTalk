@@ -27,6 +27,11 @@ struct RoadMapView: View {
                     } label: {
                         buttonLabel(argIndex: 0)
                     }
+                    .background(model.lessonsList[lessonIndex].argomenti.items[0].completed ? Color(red: 182/255, green: 23/255, blue: 45/255) : Color(.systemGray5))
+                    .clipShape(Circle())
+                    .overlay(
+                        Circle().stroke(Color(red: 182/255, green: 23/255, blue: 45/255), lineWidth: 4)
+                    )
                     .offset(x: -104, y: -28)
                     
                     // BOTTONE 2: Usa MatchingExerciseView (passa l'ARRAY .items)
@@ -38,6 +43,11 @@ struct RoadMapView: View {
                     } label: {
                         buttonLabel(argIndex: 1)
                     }
+                    .background(model.lessonsList[lessonIndex].argomenti.items[1].completed ? Color(red: 182/255, green: 23/255, blue: 45/255) : Color(.systemGray5))
+                    .clipShape(Circle())
+                    .overlay(
+                        Circle().stroke(Color(red: 182/255, green: 23/255, blue: 45/255), lineWidth: 4)
+                    )
                     .offset(x: 110, y: 55)
                     
                     // BOTTONE 3: Usa MixedExerciseView (passa l'ARRAY .items)
@@ -49,6 +59,11 @@ struct RoadMapView: View {
                     } label: {
                         buttonLabel(argIndex: 2)
                     }
+                    .background(model.lessonsList[lessonIndex].argomenti.items[2].completed ? Color(red: 182/255, green: 23/255, blue: 45/255) : Color(.systemGray5))
+                    .clipShape(Circle())
+                    .overlay(
+                        Circle().stroke(Color(red: 182/255, green: 23/255, blue: 45/255), lineWidth: 4)
+                    )
                     .offset(x: -110, y: 100)
                 }
                 .background(Color.clear)
@@ -74,11 +89,6 @@ struct RoadMapView: View {
             .font(.system(size: 60))
             .padding(51)
             .foregroundColor(arg.completed ? Color(.systemGray5) : Color(red: 182/255, green: 23/255, blue: 45/255))
-            .background(arg.completed ? Color(red: 182/255, green: 23/255, blue: 45/255) : Color(.systemGray5))
-            .clipShape(Circle())
-            .overlay(
-                Circle().stroke(Color(red: 182/255, green: 23/255, blue: 45/255), lineWidth: 4)
-            )
     }
     
     private func markCompleted(lessonIndex: Int, argIndex: Int) {
