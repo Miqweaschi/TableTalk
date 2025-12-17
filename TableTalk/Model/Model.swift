@@ -125,20 +125,20 @@ class Model: ObservableObject {
     
     // Lezione1Bottone2; immagine con risposta
     static let l1b1_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
-        Esercizio(.imageAsset(path: "Oil"), .text("Oil"), done: false),
-        Esercizio(.imageAsset(path: "Salad"), .text("Salad"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine carne"), .text("carne"), done: false),
         
-        Esercizio(.imageAsset(path: "Cucumbers"), .text("Cucumbers"), done: false),
-        Esercizio(.imageAsset(path: "Meat"), .text("Meat"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
         
-        Esercizio(.imageAsset(path: "Salt"), .text("Salt"), done: false),
-        Esercizio(.imageAsset(path: "Bread"), .text("Bread"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
         
-        Esercizio(.imageAsset(path: "Carrots"), .text("Carrots"), done: false),
-        Esercizio(.imageAsset(path: "cheese"), .text("Cheese"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
         
-        Esercizio(.imageAsset(path: "Mushrooms"), .text("Mushrooms"), done: false),
-        Esercizio(.imageAsset(path: "Tomatoes"), .text("Tomatoes"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
     ])
     
     static let l1b2_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
@@ -158,6 +158,20 @@ class Model: ObservableObject {
         Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
     ])
     
+    static let l1b3_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
+        // 1. Scrittura
+        Esercizio(.text("Come si dice 'Ciao' in inglese?"), .text("Hello")),
+        // 2. Drag & Drop con Scelte
+        Esercizio(.imageAsset(path: "pasta"), .text("Pasta")),
+        // 3. Scrittura
+        Esercizio(.text("Traduci: 'Il ragazzo'"), .text("The boy")),
+        // 4. Drag & Drop con Scelte
+        Esercizio(.imageAsset(path: "mela"), .text("Apple"))
+    ])
+
+
+    
+     
     // Varie lezioni
     let argsL1: Argomenti
     let argsL2: Argomenti
@@ -173,16 +187,7 @@ class Model: ObservableObject {
             Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l1b1_drag),
             
             // QUI CREIAMO IL MIX PER IL BOTTONE 3
-            Argomento(number: "3", content: "Test finale", completed: false, esercizi: Esercizi(items: [
-                // 1. Scrittura
-                Esercizio(.text("Come si dice 'Ciao' in inglese?"), .text("Hello")),
-                // 2. Drag & Drop con Scelte
-                Esercizio(.imageAsset(path: "pasta"), .text("Pasta")),
-                // 3. Scrittura
-                Esercizio(.text("Traduci: 'Il ragazzo'"), .text("The boy")),
-                // 4. Drag & Drop con Scelte
-                Esercizio(.imageAsset(path: "mela"), .text("Apple"))
-            ]))
+            Argomento(number: "3", content: "Test finale", completed: false, esercizi: Model.l1b3_drag)
         ])
         
         
@@ -226,3 +231,8 @@ class Model: ObservableObject {
     @Published var totalProgress: Double = 0.0
 }
     
+
+
+    
+
+
