@@ -1,40 +1,34 @@
-//
-//  ContentView.swift
-//  TableTalk
-//
-//  Created by AFP PAR 21 on 05/12/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+ 
+    @StateObject private var model = Model()
     
     var body: some View {
-        //TabView ci permette di creare una barra di navigazione.
         TabView {
-            // ActivityView()
+            
             MainHomeView()
                 .tabItem {
-                Label("Activity", systemImage: "calendar")
-            }
+                    Label("Attività", systemImage: "calendar")
+                }
             
+        
             LessonsView()
                 .tabItem {
-                Label("Lessons", systemImage: "book.closed")
-            }
+                    Label("Lezioni", systemImage: "book.closed")
+                }
             
-            SimulationView()
+           
+            SimulationMenuListView(model: model)
                 .tabItem {
-                Label("Simulation", systemImage: "play.fill")
-            }
+                    Label("Simulazione", systemImage: "play.fill")
+                }
         }
-        .tint((Color(r:182,g:23,b:45,opacity:100)))
         
+        .tint(Color(red: 182/255, green: 23/255, blue: 45/255))
     }
 }
 
-
-    #Preview {
-        ContentView()
-    }
-
+#Preview {
+    ContentView()
+}

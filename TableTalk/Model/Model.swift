@@ -106,20 +106,41 @@
         }
     }
 
-    // Aggiungi questa struct fuori dalla classe nel file Model.swift
-    struct DialogueStep: Hashable, Identifiable {
-        let id = UUID()
-        let customerLine: String
-        let expectedAnswer: String
-    }
+
+struct DialogueStep: Hashable, Identifiable {
+    let id = UUID()
+    let customerLine: String
+    let expectedAnswer: String
+    let options: [String]
+}
 
 
         
 
     class Model: ObservableObject {
-        // 10 esercizi relativi al primo bottone della prima lezione
+        
+    
+        
+        static let l1b1_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
+            Esercizio(.imageAsset(path: "Oil"), .text("Oil"), done: false),
+            Esercizio(.imageAsset(path: "Salad"), .text("Salad"), done: false),
+            
+            Esercizio(.imageAsset(path: "Cucumbers"), .text("Cucumbers"), done: false),
+            Esercizio(.imageAsset(path: "Meat"), .text("Meat"), done: false),
+            
+            Esercizio(.imageAsset(path: "Salt"), .text("Salt"), done: false),
+            Esercizio(.imageAsset(path: "Bread"), .text("Bread"), done: false),
+            
+            Esercizio(.imageAsset(path: "Carrots"), .text("Carrots"), done: false),
+            Esercizio(.imageAsset(path: "cheese"), .text("Mozzarella"), done: false),
+            
+            Esercizio(.imageAsset(path: "Mushrooms"), .text("Mushrooms"), done: false),
+            Esercizio(.imageAsset(path: "Tomatoes"), .text("Tomatoes"), done: false),
+        ])
+        
+        
         static let l1b2: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
-            // --- I TUOI 3 ESERCIZI ORIGINALI ---
+        
             Esercizio(.text("This caprese salad is made of ___ and ___"), .text("Tomato, Mozzarella | Ham, Bread")),
             
             Esercizio(.text("The pizza ___ mushrooms and cheese"), .text("has | is, are")),
@@ -141,39 +162,38 @@
             Esercizio(.text("The burger comes with a side of ___"), .text("Fries | Soup, Pasta"))
         ])
         
-        // Lezione1Bottone2; immagine con risposta
-        static let l1b1_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
-            Esercizio(.imageAsset(path: "Oil"), .text("Oil"), done: false),
-            Esercizio(.imageAsset(path: "Salad"), .text("Salad"), done: false),
-            
-            Esercizio(.imageAsset(path: "Cucumbers"), .text("Cucumbers"), done: false),
-            Esercizio(.imageAsset(path: "Meat"), .text("Meat"), done: false),
-            
-            Esercizio(.imageAsset(path: "Salt"), .text("Salt"), done: false),
-            Esercizio(.imageAsset(path: "Bread"), .text("Bread"), done: false),
-            
-            Esercizio(.imageAsset(path: "Carrots"), .text("Carrots"), done: false),
-            Esercizio(.imageAsset(path: "cheese"), .text("Mozzarella"), done: false),
-            
-            Esercizio(.imageAsset(path: "Mushrooms"), .text("Mushrooms"), done: false),
-            Esercizio(.imageAsset(path: "Tomatoes"), .text("Tomatoes"), done: false),
-        ])
+
         
         static let l2b1_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
-            Esercizio(.imageAsset(path: "Oil"), .text("Oil"), done: false),
-            Esercizio(.imageAsset(path: "Salad"), .text("Salad"), done: false),
             
-            Esercizio(.imageAsset(path: "Cucumbers"), .text("Cucumbers"), done: false),
-            Esercizio(.imageAsset(path: "Meat"), .text("Meat"), done: false),
+            Esercizio(.text("Excuse me, can we have the ___, please?"), .text("bill | menu, order")),
             
-            Esercizio(.imageAsset(path: "Salt"), .text("Salt"), done: false),
-            Esercizio(.imageAsset(path: "Bread"), .text("Bread"), done: false),
             
-            Esercizio(.imageAsset(path: "Carrots"), .text("Carrots"), done: false),
-            Esercizio(.imageAsset(path: "cheese"), .text("Mozzarella"), done: false),
+            Esercizio(.text("Do you want to pay by cash or ___?"), .text("credit card | passport, car")),
             
-            Esercizio(.imageAsset(path: "Mushrooms"), .text("Mushrooms"), done: false),
-            Esercizio(.imageAsset(path: "Tomatoes"), .text("Tomatoes"), done: false),
+            
+            Esercizio(.text("Can we ___ the bill in two?"), .text("split | cut, break")),
+            
+          
+            Esercizio(.text("Here is your ___, sir."), .text("receipt | recipe, ticket")),
+            
+            
+            Esercizio(.text("Thank you, keep the ___."), .text("change | money, coins")),
+            
+            
+            Esercizio(.text("Service is ___ in the price."), .text("included | inside, free")),
+            
+            
+            Esercizio(.text("The ___ is 45 euros."), .text("total | sum, rest")),
+            
+            
+            Esercizio(.text("We would like to pay ___."), .text("separately | alone, divided")),
+            
+            
+            Esercizio(.text("Please, enter your ___ code."), .text("PIN | PEN, PAN")),
+            
+            
+            Esercizio(.text("You can pay at the ___."), .text("counter | table, kitchen"))
         ])
         
         
@@ -230,6 +250,7 @@
         // Varie lezioni
         let argsL1: Argomenti
         let argsL2: Argomenti
+        let argsL3: Argomenti
         
         // Lista lezioni
         @Published var lessonsList: [Lesson]
@@ -238,44 +259,121 @@
             // Nel file Model.swift, all'interno di init()
             // In Model.swift -> init()
             self.argsL1 = Argomenti(items: [
-                Argomento(number: "1", content: "Saluti iniziali", completed: false, esercizi: Model.l1b1_drag),
+                Argomento(number: "1", content: "", completed: false, esercizi: Model.l1b1_drag),
                 
-                Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l1b2),
+                Argomento(number: "2", content: "", completed: false, esercizi: Model.l1b2),
             
-                Argomento(number: "3", content: "Test finale", completed: false, esercizi: Model.mixEserciziL1),
+                Argomento(number: "3", content: "", completed: false, esercizi: Model.mixEserciziL1),
             ])
             
             
             self.argsL2 = Argomenti(items: [
-                Argomento(number: "1", content: "Saluti ", completed: false, esercizi: Model.l2b1_drag),
+                Argomento(number: "1", content: "", completed: false, esercizi: Model.l2b1_drag),
                 
-                Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l2b2),
+                Argomento(number: "2", content: "", completed: false, esercizi: Model.l2b2),
                 
-                Argomento(number: "3", content: "Test finale", completed: false, esercizi: Model.mixEserciziL1),
+                Argomento(number: "3", content: "", completed: false, esercizi: Model.mixEserciziL1),
             ])
             
-            
+            self.argsL3 = Argomenti(items: [
+                Argomento(number: "1", content: "", completed: false, esercizi: Model.l2b1_drag),
+                
+                Argomento(number: "2", content: "", completed: false, esercizi: Model.l2b2),
+                
+                Argomento(number: "3", content: "", completed: false, esercizi: Model.mixEserciziL1),
+            ])
             
             
             self.lessonsList = [
                 Lesson(title: "Menù", number: "1", argomenti: self.argsL1),
                 Lesson(title: "Service", number: "2", argomenti: self.argsL2),
-                //Lesson(title: "Kitchen", number: "3", argomenti: self.argsL1),
+                Lesson(title: "Cooking Methods", number: "3", argomenti: self.argsL3),
                 //Lesson(title: "Ingredients", number: "4", argomenti: self.argsL1),
                 //Lesson(title: "Advanced", number: "5", argomenti: self.argsL1),
                 //Lesson(title: "Advanced", number: "6", argomenti: self.argsL1)
             ]
+            
+            setupSimulations()
         }
         
-        @Published var simulationDialogue: [DialogueStep] = [
-            DialogueStep(customerLine: "Hello, are you open?", expectedAnswer: "Hello, yes. Welcome!"),
-            DialogueStep(customerLine: "We would lika a table.", expectedAnswer: "For how many?"),
-            DialogueStep(customerLine: "We are four.", expectedAnswer: "Follow me, please")
-        ]
+        @Published var simulations: [SimulationScenario] = []
         
-        // Variabile per tracciare il progresso globale (da usare nella MainHomeView)
         @Published var totalProgress: Double = 0.0
-    }
+        
+        func setupSimulations() {
+                // SIMULAZIONE 1: Accoglienza
+                let sim1 = SimulationScenario(title: "Welcome",
+                                              imageName: "Person3",
+                                              steps: [
+                    DialogueStep(
+                        customerLine: "Hello, are you open?",
+                        expectedAnswer: "Hello, yes. Welcome!",
+                        options: ["Hello, yes. Welcome!", "No, thanks", "Good afternoon", "Maybe"]
+                    ),
+                    DialogueStep(
+                        customerLine: "We would like a table.",
+                        expectedAnswer: "For how many?",
+                        options: ["For how many?", "Good evening", "Two plates", "Thank you"]
+                    ),
+                    DialogueStep(
+                        customerLine: "We are four.",
+                        expectedAnswer: "Follow me, please",
+                        options: ["Follow me, please", "Good morning", "One plate", "You are welcome"]
+                    )
+                ])
+                
+                // SIMULAZIONE 2: Ordinazione (NUOVA)
+                let sim2 = SimulationScenario(title: "Ordering",
+                                              imageName: "Person3",
+                                              steps: [
+                    DialogueStep(
+                        customerLine: "Excuse me, can I see the menu?",
+                        expectedAnswer: "Certainly, here you are.",
+                        options: ["Certainly, here you are.", "No, sorry", "The bill please", "I am cooking"]
+                    ),
+                    DialogueStep(
+                        customerLine: "I would like the Carbonara.",
+                        expectedAnswer: "Great choice. Anything to drink?",
+                        options: ["Great choice. Anything to drink?", "It is expensive", "We don't have pasta", "Goodbye"]
+                    ),
+                    DialogueStep(
+                        customerLine: "Just water, please.",
+                        expectedAnswer: "Still or sparkling?",
+                        options: ["Still or sparkling?", "Red or White?", "Hot or Cold?", "Sweet or Salty?"]
+                    )
+                ])
+                
+                // SIMULAZIONE 3: Pagamento (NUOVA)
+                let sim3 = SimulationScenario(title: "Payment",
+                                              imageName: "Who?",
+                                              steps: [
+                    DialogueStep(
+                        customerLine: "Thank you mr. Waiter for the milk",
+                        expectedAnswer: "agartha guy?!?!",
+                        options: ["Sure, coming right up.", "No money", "Why?", "agartha guy?!?!"]
+                    ),
+                    DialogueStep(
+                        customerLine: "Do you accept credit cards?",
+                        expectedAnswer: "Yes, of course.",
+                        options: ["Yes, of course.", "Only potatoes", "I don't know", "Maybe tomorrow"]
+                    ),
+                    DialogueStep(
+                        customerLine: "Here is the card.",
+                        expectedAnswer: "Thank you. Here is your receipt.",
+                        options: ["Thank you. Here is your receipt.", "Goodbye forever", "Keep the card", "Bad code"]
+                    )
+                ])
+                
+                self.simulations = [sim1, sim2, sim3]
+            }
+        }
+        
+struct SimulationScenario: Identifiable, Hashable {
+    let id = UUID()
+    let title: String
+    let imageName: String // <--- NUOVO: Il nome dell'immagine del personaggio
+    let steps: [DialogueStep]
+}
         
 // Aggiungi queste estensioni per evitare gli "switch" o "if case" nelle View
 extension Esercizio {
