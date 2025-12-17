@@ -110,7 +110,37 @@ class Model: ObservableObject {
         Esercizio(.text("Posso salire?"), .text("Aldo Baglio"), done: false),
     ])
     
+    static let l1b2: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
+        Esercizio(.text("AAAAA"), .text("Gay"), done: false),
+        Esercizio(.text("Come stai oggi?"), .text("Bene"), done: false),
+        Esercizio(.text("Quanti anni hai?"), .text("20"), done: false),
+        Esercizio(.text("Che giorno è?"), .text("Lunedi"), done: false),
+        Esercizio(.text("Che mese è?"), .text("Dicembre"), done: false),
+        Esercizio(.text("Che anno è?"), .text("2025"), done: false),
+        Esercizio(.text("Dove sei?"), .text("IOS"), done: false),
+        Esercizio(.text("Posso entrare?"), .text("NO"), done: false),
+        Esercizio(.text("Posso uscire?"), .text("NO"), done: false),
+        Esercizio(.text("Posso salire?"), .text("Aldo Baglio"), done: false),
+    ])
+    
     // Lezione1Bottone2; immagine con risposta
+    static let l1b1_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine carne"), .text("carne"), done: false),
+        
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
+        
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
+        
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
+        
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
+        Esercizio(.imageAsset(path: "path immagine pasta"), .text("carne"), done: false),
+    ])
+    
     static let l1b2_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
         Esercizio(.imageAsset(path: "path immagine pasta"), .text("pasta"), done: false),
         Esercizio(.imageAsset(path: "path immagine carne"), .text("carne"), done: false),
@@ -130,6 +160,7 @@ class Model: ObservableObject {
     
     // Varie lezioni
     let argsL1: Argomenti
+    let argsL2: Argomenti
     
     // Lista lezioni
     @Published var lessonsList: [Lesson]
@@ -139,6 +170,24 @@ class Model: ObservableObject {
         // In Model.swift -> init()
         self.argsL1 = Argomenti(items: [
             Argomento(number: "1", content: "Saluti iniziali", completed: false, esercizi: Model.l1b1),
+            Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l1b1_drag),
+            
+            // QUI CREIAMO IL MIX PER IL BOTTONE 3
+            Argomento(number: "3", content: "Test finale", completed: false, esercizi: Esercizi(items: [
+                // 1. Scrittura
+                Esercizio(.text("Come si dice 'Ciao' in inglese?"), .text("Hello")),
+                // 2. Drag & Drop con Scelte
+                Esercizio(.imageAsset(path: "pasta"), .text("Pasta")),
+                // 3. Scrittura
+                Esercizio(.text("Traduci: 'Il ragazzo'"), .text("The boy")),
+                // 4. Drag & Drop con Scelte
+                Esercizio(.imageAsset(path: "mela"), .text("Apple"))
+            ]))
+        ])
+        
+        
+        self.argsL2 = Argomenti(items: [
+            Argomento(number: "1", content: "Saluti ", completed: false, esercizi: Model.l1b2),
             Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l1b2_drag),
             
             // QUI CREIAMO IL MIX PER IL BOTTONE 3
@@ -154,9 +203,12 @@ class Model: ObservableObject {
             ]))
         ])
         
+        
+        
+        
         self.lessonsList = [
             Lesson(title: "Welcoming", number: "1", argomenti: self.argsL1),
-           // Lesson(title: "Numbers", number: "2", argomenti: self.argsL1),
+            Lesson(title: "Numbers", number: "2", argomenti: self.argsL2),
             //  Lesson(title: "Kitchen", number: "3", argomenti: self.argsL1),
             //  Lesson(title: "Ingredients", number: "4", argomenti: self.argsL1),
             // Lesson(title: "Advanced", number: "5", argomenti: self.argsL1),

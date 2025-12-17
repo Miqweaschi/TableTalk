@@ -76,7 +76,7 @@ struct RoadMapView: View {
     private func backgroundImage(for number: String) -> some View {
         switch number {
         case "1": Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
-        case "2": Image("RoadMap1ok").resizable().edgesIgnoringSafeArea(.vertical)
+        case "2": Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
         default: Image("RoadMap2ok").resizable().edgesIgnoringSafeArea(.vertical)
         }
     }
