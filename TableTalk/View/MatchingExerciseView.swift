@@ -114,8 +114,8 @@ struct MatchingExerciseView: View {
                 }
                 .padding(.bottom, 50)
             }
+            
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(red: 255/255, green: 247/255, blue: 238/255))
         .onAppear { loadCurrentPair() }
     }

@@ -130,7 +130,15 @@
             // Prima del '|' le risposte giuste, dopo il '|' i distrattori
             Esercizio(.text("I'm allergic to ___, so I can't eat bread, pasta or pizza."), .text("Gluten | Nickel, Soy")),
             Esercizio(.text("She has a ___ allergy, so she can't drink milk."), .text("Dairy | Peanut, Fish")),
-            Esercizio(.text("I have a ___ intolerance, so I can't drink milk."), .text("Lactose | Sugar, Peanut"))
+            Esercizio(.text("I have a ___ intolerance, so I can't drink milk."), .text("Lactose | Sugar, Peanut")),
+            Esercizio(.text("He has a ___ allergy, so he shouldn't eat almonds or walnuts."), .text("Nut | Shellfish, Egg")),
+            Esercizio(.text("I have a ___ allergy, so I can't eat prawns or lobster."), .text("Shellfish | Dairy, Wheat")),
+            Esercizio(.text("They are allergic to ___, so they use honey instead of sugar."), .text("Fructose | Caffeine, Gluten")),
+            Esercizio(.text("She has an ___ allergy, so she avoids mayonnaise and omelettes."), .text("Egg | Soy, Nut")),
+            Esercizio(.text("My brother is allergic to ___, so he never eats tofu or edamame."), .text("Soy | Nickel, Dairy")),
+            Esercizio(.text("Since I have a ___ allergy, I always check the ingredients in chocolate for traces of legumes."), .text("Peanut | Fish, Wheat")),
+            Esercizio(.text("He is allergic to ___, so he can't eat salmon or tuna."), .text("Fish | Shellfish, Egg")),
+            Esercizio(.text("I have a ___ intolerance, so I always buy caffeine-free coffee."), .text("Caffeine | Gluten, Dairy"))
         ])
         
         

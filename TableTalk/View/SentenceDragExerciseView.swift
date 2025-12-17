@@ -32,11 +32,14 @@ struct SentenceDragExerciseView: View {
 
                 VStack(spacing: 40) {
                     // --- AREA DELLA FRASE ---
+                    // --- AREA DELLA FRASE ---
                     renderSentence(attuale.questionText, attuale: attuale)
                         .padding(25)
+                        .frame(maxWidth: .infinity, alignment: .leading) // <--- AGGIUNGI QUESTO
                         .background(Color.white)
                         .cornerRadius(15)
                         .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
+                        .padding(.horizontal) // <--- AGGIUNGI QUESTO: evita che il box bianco tocchi i bordi del telefonohadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
 
                     // --- AREA PAROLE IN COLONNA ---
                     VStack(spacing: 15) {
@@ -75,37 +78,45 @@ struct SentenceDragExerciseView: View {
     private func renderSentence(_ sentence: String, attuale: Esercizio<EsercizioContent, EsercizioContent>) -> some View {
         let parti = sentence.components(separatedBy: "___")
         
-        FlowLayout(spacing: 10) {
+        // Prendiamo la larghezza dello schermo meno i margini
+        let maxWidth = UIScreen.main.bounds.width - 80
+
+        FlowLayout(spacing: 8) {
             ForEach(0..<parti.count, id: \.self) { index in
+                // Frammento di testo
                 Text(parti[index])
                     .font(.title3)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: maxWidth, alignment: .leading) // <--- OBBLIGA IL WRAP
 
                 if index < parti.count - 1 {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(droppedWords[index] == nil ? Color.gray.opacity(0.1) : Color.green.opacity(0.2))
-                            .frame(minWidth: 100, minHeight: 45)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(droppedWords[index] == nil ? Color.gray.opacity(0.3) : Color.green,
-                                            lineWidth: 2)
-                            )
-                        
-                        if let word = droppedWords[index] {
-                            Text(word.uppercased())
-                                .bold()
-                                .foregroundColor(.green)
-                        }
-                    }
-                    .fixedSize()
-                    .onDrop(of: [UTType.text], isTargeted: nil) { providers in
-                        handleDrop(providers: providers, spaceIndex: index, currentEx: attuale)
-                    }
+                    // Box di drop
+                    dropBox(index: index, attuale: attuale)
                 }
             }
         }
     }
 
+    @ViewBuilder
+    private func dropBox(index: Int, attuale: Esercizio<EsercizioContent, EsercizioContent>) -> some View {
+        ZStack {
+            let word = droppedWords[index]
+            RoundedRectangle(cornerRadius: 10)
+                .fill(word == nil ? Color.black.opacity(0.05) : Color.green.opacity(0.1) )
+                .frame(width: 100, height: 40)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(word == nil ? Color.gray.opacity(0.3) : Color.green, lineWidth: 2)
+                )
+            
+            if let word = word {
+                Text(word.uppercased()).font(.caption.bold()).foregroundColor(.green)
+            }
+        }
+        .onDrop(of: [UTType.text], isTargeted: nil) { providers in
+            handleDrop(providers: providers, spaceIndex: index, currentEx: attuale)
+        }
+    }
     // Le funzioni setupCurrentExercise, handleDrop e nextExercise rimangono uguali a prima
     private func setupCurrentExercise() {
         droppedWords = [:]
@@ -155,22 +166,42 @@ struct SentenceDragExerciseView: View {
 // --- FLOWLAYOUT (Invariato) ---
 struct FlowLayout: Layout {
     var spacing: CGFloat
+    
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let sizes = subviews.map { $0.sizeThatFits(.unspecified) }
-        var width: CGFloat = 0; var height: CGFloat = 0; var x: CGFloat = 0; var y: CGFloat = 0; var maxHeight: CGFloat = 0
-        for size in sizes {
-            if x + size.width > (proposal.width ?? 0) { x = 0; y += maxHeight + spacing; maxHeight = 0 }
-            x += size.width + spacing; width = max(width, x); maxHeight = max(maxHeight, size.height); height = max(height, y + maxHeight)
-        }
-        return CGSize(width: width, height: height)
-    }
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        var x = bounds.minX; var y = bounds.minY; var maxHeight: CGFloat = 0
+        let containerWidth = proposal.width ?? UIScreen.main.bounds.width
+        var totalHeight: CGFloat = 0
+        var currentRowWidth: CGFloat = 0
+        var currentRowHeight: CGFloat = 0
+        
         for subview in subviews {
             let size = subview.sizeThatFits(.unspecified)
-            if x + size.width > bounds.maxX { x = bounds.minX; y += maxHeight + spacing; maxHeight = 0 }
+            if currentRowWidth + size.width > containerWidth {
+                totalHeight += currentRowHeight + spacing
+                currentRowWidth = size.width + spacing
+                currentRowHeight = size.height
+            } else {
+                currentRowWidth += size.width + spacing
+                currentRowHeight = max(currentRowHeight, size.height)
+            }
+        }
+        return CGSize(width: containerWidth, height: totalHeight + currentRowHeight)
+    }
+    
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        var x = bounds.minX
+        var y = bounds.minY
+        var currentRowHeight: CGFloat = 0
+        
+        for subview in subviews {
+            let size = subview.sizeThatFits(.unspecified)
+            if x + size.width > bounds.maxX {
+                x = bounds.minX
+                y += currentRowHeight + spacing
+                currentRowHeight = 0
+            }
             subview.place(at: CGPoint(x: x, y: y), proposal: .unspecified)
-            x += size.width + spacing; maxHeight = max(maxHeight, size.height)
+            x += size.width + spacing
+            currentRowHeight = max(currentRowHeight, size.height)
         }
     }
 }
