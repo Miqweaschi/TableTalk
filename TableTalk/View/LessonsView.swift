@@ -1,72 +1,57 @@
-//
-//  LessonsView.swift
-//  TableTalk
-//
-//  Created by AFP PAR 35 on 09/12/25.
-//
-
 import SwiftUI
 
 struct LessonsView: View {
-    @EnvironmentObject var model:Model
+    @EnvironmentObject var model: Model
     
     var body: some View {
-        let lessonList = model.lessonsList
-        NavigationStack{
-            VStack {
+        NavigationStack {
+            VStack(spacing: 0) {
+                // Header coerente con il tuo stile
                 Text("Lessons")
-                    .font(Font.largeTitle)
+                    .font(.largeTitle)
+                    .bold()
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
-                    .padding(.bottom,20)
-                    .padding(.top,50)
-                    .background(Color(r:182,g:23,b:45,opacity:100))
-                
-                Spacer()
+                    .padding(.bottom, 20)
+                    .padding(.top, 50)
+                    .background(Color(red: 182/255, green: 23/255, blue: 45/255))
                 
                 ScrollView {
-                    VStack {
-                        
-                        // Iteriamo sulla lista delle lezioni presenti.
-                        // Ogni lezione contiene: numero, titolo e lista argomenti relativi ad essa.
-                        // La lista degli argomenti relativa ad una lezione la passiamo a RoadMapView
-                        // vedi RoadMapView() per spiegazione
-                        
-                        ForEach(lessonList, id: \.self) { lesson in
-                            NavigationLink{
-                                
-                                // Passiamo la lezione i-esima alla RMW()
-                                RoadMapView(lesson: lesson, lessonIndex: 1, model: model)
-                            } label: {
+                    VStack(spacing: 15) {
+                        // Usiamo enumerated() per passare l'indice corretto
+                        ForEach(Array(model.lessonsList.enumerated()), id: \.element.id) { index, lesson in
+                            
+                            NavigationLink(destination: RoadMapView(lesson: lesson, lessonIndex: index, model: model)) {
+                                // IL LABEL DEVE STARE DENTRO LE GRAFFE DEL NAVIGATIONLINK
                                 HStack {
                                     Text(lesson.number)
                                         .font(.title)
-                                        .frame(width: 40, height: 50)
+                                        .frame(width: 50, height: 50)
                                         .foregroundColor(.white)
-                                        .background(
-                                            Color(red: 182/255, green: 23/255, blue: 45/255)
-                                        )
-                                    
+                                        .background(Color(red: 182/255, green: 23/255, blue: 45/255))
                                         .clipShape(RoundedRectangle(cornerRadius: 12))
                                     
                                     Text(lesson.title.uppercased())
+                                        .font(.headline)
                                         .foregroundColor(.black)
+                                        .padding(.leading, 10)
+                                    
                                     Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(.gray)
                                 }
                                 .padding()
                                 .background(Color(.systemGray5))
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
                             }
+                            .padding(.horizontal)
                         }
                     }
+                    .padding(.top, 20)
                 }
-                .background(Color(r: 255,g: 247,b: 238,opacity: 100))
+                .background(Color(red: 255/255, green: 247/255, blue: 238/255))
             }
         }
     }
-}
-
-#Preview {
-    ContentView()
-        .environmentObject(Model())
 }

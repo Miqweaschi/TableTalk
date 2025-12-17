@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import UIKit
+import Combine
 
 struct RoadMapView: View {
     let lesson: Lesson
@@ -8,131 +9,80 @@ struct RoadMapView: View {
     @ObservedObject var model: Model
     
     var body: some View {
-        ZStack{
-            switch lesson.number{
-            case "1":
-                Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
-            case "2":
-                Image("RoadMap1ok").resizable().edgesIgnoringSafeArea(.vertical)
-            default:
-                Image("RoadMap2ok").resizable().edgesIgnoringSafeArea(.vertical)
-            }
-            NavigationStack {
-                // Con il nuovo modello, argomenti è una lista. Ordiniamo per numero e prendiamo i primi 3.
-                let sortedItems = lesson.argomenti.items.sorted { $0.number < $1.number }
-                let buttonOne = model.lessonsList[lessonIndex].argomenti.items[0]
-                let buttonTwo = sortedItems[1]
-                let buttonThree = sortedItems[2]
+        // Protezione contro indici fuori limite
+        if lessonIndex < model.lessonsList.count {
+            let currentLesson = model.lessonsList[lessonIndex]
+            
+            ZStack {
+                // Sfondo dinamico
+                backgroundImage(for: currentLesson.number)
                 
-                /// Logica valida per tutti i bottoni (Argomento): passiamo la lista di esercizi (Esercizi)
-                /// ad EsercizioView che al suo interno li gestirà singolarmente
-                
-                // Bottone 1
-                NavigationLink {
-                    EsercizioView(
-                        esercizi: model.lessonsList[lessonIndex].argomenti.items[0].esercizi,
-                        onComplete: {
-                            markCompleted(lessonIndex: lessonIndex, argIndex: 0)
-                        }
-                    )
-                } label: {
-                    Text(model.lessonsList[lessonIndex].argomenti.items[0].number)
-                        .font(.system(size: 60))
-                        .padding(51)
-                        .foregroundColor(model.lessonsList[lessonIndex].argomenti.items[0].completed
-                                         ? Color(.systemGray5)
-                                         : Color(r: 182, g: 23, b: 45, opacity: 100))
-                }
-                .background(
-                    model.lessonsList[lessonIndex].argomenti.items[0].completed
-                    ? Color(r: 182, g: 23, b: 45, opacity: 100)
-                    : Color(.systemGray5)
-                )
-                .clipShape(Circle())
-                .overlay(
-                    Circle()
-                        .stroke(
-                            Color(r: 182, g: 23, b: 45, opacity: 100),
-                            lineWidth: 4
+                NavigationStack {
+                    // BOTTONE 1: Usa EsercizioView (passa la struct Esercizi intera)
+                    NavigationLink {
+                        EsercizioView(
+                            esercizi: currentLesson.argomenti.items[0].esercizi,
+                            onComplete: { markCompleted(lessonIndex: lessonIndex, argIndex: 0) }
                         )
-                )
-                .offset(x: -104, y: -28)
-                
-                
-                // Bottone 2
-                // Bottone 2 nella tua RoadMapView
-                // Bottone 2 (Dinamico e collegato al Model come il Bottone 1)
-                NavigationLink {
-                    // Passiamo gli esercizi prendendoli dal model tramite l'indice della lezione e dell'argomento
-                    MatchingExerciseView(
-                        esercizi: model.lessonsList[lessonIndex].argomenti.items[1].esercizi.items,
-                        onComplete: {
-                            markCompleted(lessonIndex: lessonIndex, argIndex: 1)
-                        }
-                    )
-                } label: {
-                    Text(model.lessonsList[lessonIndex].argomenti.items[1].number)
-                        .font(.system(size: 60))
-                        .padding(51)
-                        .foregroundColor(model.lessonsList[lessonIndex].argomenti.items[1].completed
-                                         ? Color(.systemGray5)
-                                         : Color(red: 182/255, green: 23/255, blue: 45/255))
-                }
-                .background(
-                    model.lessonsList[lessonIndex].argomenti.items[1].completed
-                    ? Color(red: 182/255, green: 23/255, blue: 45/255) // DIVENTA ROSSO
-                    : Color(.systemGray5)                             // GRIGIO INIZIALE
-                )
-                .clipShape(Circle())
-                .overlay(
-                    Circle()
-                        .stroke(
-                            Color(red: 182/255, green: 23/255, blue: 45/255),
-                            lineWidth: 4
+                    } label: {
+                        buttonLabel(argIndex: 0)
+                    }
+                    .offset(x: -104, y: -28)
+                    
+                    // BOTTONE 2: Usa MatchingExerciseView (passa l'ARRAY .items)
+                    NavigationLink {
+                        MatchingExerciseView(
+                            esercizi: currentLesson.argomenti.items[1].esercizi.items,
+                            onComplete: { markCompleted(lessonIndex: lessonIndex, argIndex: 1) }
                         )
-                )
-                .offset(x: 110, y: 55)
-                
-                // Bottone 3
-                NavigationLink {
-                    EsercizioView(
-                        esercizi: model.lessonsList[lessonIndex].argomenti.items[2].esercizi,
-                        onComplete: {
-                            markCompleted(lessonIndex: lessonIndex, argIndex: 2)
-                        }
-                    )
-                } label: {
-                    Text(model.lessonsList[lessonIndex].argomenti.items[2].number)
-                        .font(.system(size: 60))
-                        .padding(51)
-                        .foregroundColor(model.lessonsList[lessonIndex].argomenti.items[2].completed
-                                         ? Color(.systemGray5)
-                                         : Color(r: 182, g: 23, b: 45, opacity: 100))
-                }
-                .background(
-                    model.lessonsList[lessonIndex].argomenti.items[2].completed
-                    ? Color(r: 182, g: 23, b: 45, opacity: 100)
-                    : Color(.systemGray5)
-                )
-                .clipShape(.circle)
-                .overlay(
-                    Circle()
-                        .stroke(
-                            Color.init(r: 182, g: 23, b: 45, opacity: 100),
-                            style: StrokeStyle(
-                                lineWidth: 4,
-                                lineCap: .round
-                            )
+                    } label: {
+                        buttonLabel(argIndex: 1)
+                    }
+                    .offset(x: 110, y: 55)
+                    
+                    // BOTTONE 3: Usa MixedExerciseView (passa l'ARRAY .items)
+                    NavigationLink {
+                        MixedExerciseView(
+                            esercizi: currentLesson.argomenti.items[2].esercizi.items,
+                            onComplete: { markCompleted(lessonIndex: lessonIndex, argIndex: 2) }
                         )
-                )
-                .offset(x:-110, y: 100)
+                    } label: {
+                        buttonLabel(argIndex: 2)
+                    }
+                    .offset(x: -110, y: 100)
+                }
+                .background(Color.clear)
             }
         }
     }
     
-    private func markCompleted(lessonIndex: Int, argIndex: Int) {
-        model.lessonsList[lessonIndex].argomenti.items[argIndex].completed = true
+    // Funzione per lo sfondo
+    @ViewBuilder
+    private func backgroundImage(for number: String) -> some View {
+        switch number {
+        case "1": Image("RoadMap1").resizable().edgesIgnoringSafeArea(.vertical)
+        case "2": Image("RoadMap1ok").resizable().edgesIgnoringSafeArea(.vertical)
+        default: Image("RoadMap2ok").resizable().edgesIgnoringSafeArea(.vertical)
+        }
     }
     
+    // Funzione helper per le etichette dei bottoni
+    @ViewBuilder
+    private func buttonLabel(argIndex: Int) -> some View {
+        let arg = model.lessonsList[lessonIndex].argomenti.items[argIndex]
+        Text(arg.number)
+            .font(.system(size: 60))
+            .padding(51)
+            .foregroundColor(arg.completed ? Color(.systemGray5) : Color(red: 182/255, green: 23/255, blue: 45/255))
+            .background(arg.completed ? Color(red: 182/255, green: 23/255, blue: 45/255) : Color(.systemGray5))
+            .clipShape(Circle())
+            .overlay(
+                Circle().stroke(Color(red: 182/255, green: 23/255, blue: 45/255), lineWidth: 4)
+            )
+    }
     
+    private func markCompleted(lessonIndex: Int, argIndex: Int) {
+        model.objectWillChange.send()
+        model.lessonsList[lessonIndex].argomenti.items[argIndex].completed = true
+    }
 }

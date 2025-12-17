@@ -135,19 +135,32 @@ class Model: ObservableObject {
     @Published var lessonsList: [Lesson]
     
     init() {
+        // Nel file Model.swift, all'interno di init()
+        // In Model.swift -> init()
         self.argsL1 = Argomenti(items: [
             Argomento(number: "1", content: "Saluti iniziali", completed: false, esercizi: Model.l1b1),
             Argomento(number: "2", content: "Presentazioni", completed: false, esercizi: Model.l1b2_drag),
-            Argomento(number: "3", content: "Esercizi finali", completed: false)
+            
+            // QUI CREIAMO IL MIX PER IL BOTTONE 3
+            Argomento(number: "3", content: "Test finale", completed: false, esercizi: Esercizi(items: [
+                // 1. Scrittura
+                Esercizio(.text("Come si dice 'Ciao' in inglese?"), .text("Hello")),
+                // 2. Drag & Drop con Scelte
+                Esercizio(.imageAsset(path: "pasta"), .text("Pasta")),
+                // 3. Scrittura
+                Esercizio(.text("Traduci: 'Il ragazzo'"), .text("The boy")),
+                // 4. Drag & Drop con Scelte
+                Esercizio(.imageAsset(path: "mela"), .text("Apple"))
+            ]))
         ])
         
         self.lessonsList = [
             Lesson(title: "Welcoming", number: "1", argomenti: self.argsL1),
-            Lesson(title: "Numbers", number: "2", argomenti: self.argsL1),
-            Lesson(title: "Kitchen", number: "3", argomenti: self.argsL1),
-            Lesson(title: "Ingredients", number: "4", argomenti: self.argsL1),
-            Lesson(title: "Advanced", number: "5", argomenti: self.argsL1),
-            Lesson(title: "Advanced", number: "6", argomenti: self.argsL1)
+           // Lesson(title: "Numbers", number: "2", argomenti: self.argsL1),
+            //  Lesson(title: "Kitchen", number: "3", argomenti: self.argsL1),
+            //  Lesson(title: "Ingredients", number: "4", argomenti: self.argsL1),
+            // Lesson(title: "Advanced", number: "5", argomenti: self.argsL1),
+            // Lesson(title: "Advanced", number: "6", argomenti: self.argsL1)
         ]
     }
     
