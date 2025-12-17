@@ -172,7 +172,19 @@
             Esercizio(.imageAsset(path: "mela"), .text("Apple"))
         ])
 
-
+        static let mixEsercizi: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
+            // Tipo 1: Domanda testuale (Scrittura/Completamento)
+            Esercizio(.text("How do you say 'Il conto' in English?"), .text("The bill")),
+            
+            // Tipo 2: Immagine (Drag & Drop)
+            Esercizio(.imageAsset(path: "Oil"), .text("Oil")),
+            
+            // Tipo 1: Domanda testuale
+            Esercizio(.text("Is the pizza ___? (calda)"), .text("hot")),
+            
+            // Tipo 2: Immagine
+            Esercizio(.imageAsset(path: "Tomatoes"), .text("Tomatoes"))
+        ])
         
          
         // Varie lezioni
