@@ -9,6 +9,7 @@ struct MatchingExerciseView: View {
     @State private var currentPairIndex: Int = 0
     @State private var completedInCurrentPair: Set<UUID> = []
     @State private var shuffledAnswers: [String] = []
+    @State private var lastResultPerTarget: [UUID: Bool?] = [:]
     
     @Environment(\.dismiss) var dismiss
 
@@ -21,11 +22,16 @@ struct MatchingExerciseView: View {
 
     var body: some View {
         VStack(spacing: 30) {
-            // Progress tracker (es. "Coppia 1 di 5")
-            Text("Gruppo \(currentPairIndex + 1) di \(pairs.count)")
-                .font(.caption)
-                .padding(.top)
-                .foregroundColor(.secondary)
+            // Barra di progresso gruppi
+            VStack(spacing: 6) {
+                ProgressView(value: Double(currentPairIndex + 1), total: Double(pairs.count))
+                    .tint(Color(red: 182/255, green: 23/255, blue: 45/255))
+                    .padding(.horizontal)
+                Text("Gruppo \(currentPairIndex + 1) di \(pairs.count)")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+            .padding(.top)
 
             Text("Abbina le parole alle immagini")
                 .font(.title2)
@@ -38,6 +44,7 @@ struct MatchingExerciseView: View {
                 HStack(spacing: 30) {
                     ForEach(currentPair, id: \.id) { ex in
                         VStack(spacing: 15) {
+                            let result = lastResultPerTarget[ex.id] ?? nil
                             ZStack {
                                 if case let .imageAsset(path) = ex.question {
                                     Image(path)
@@ -47,12 +54,17 @@ struct MatchingExerciseView: View {
                                         .clipped()
                                         .cornerRadius(15)
                                 }
-                                
+
                                 if completedInCurrentPair.contains(ex.id) {
                                     Color.green.opacity(0.3).cornerRadius(15)
                                     Image(systemName: "checkmark.circle.fill")
                                         .foregroundColor(.white)
                                         .font(.system(size: 40))
+                                } else if result == false {
+                                    Color.red.opacity(0.25).cornerRadius(15)
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 36))
                                 }
                             }
                             .frame(width: 140, height: 140)
@@ -61,7 +73,12 @@ struct MatchingExerciseView: View {
                             .shadow(radius: 3)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(completedInCurrentPair.contains(ex.id) ? Color.green : Color.gray.opacity(0.3), lineWidth: 3)
+                                    .stroke(
+                                        completedInCurrentPair.contains(ex.id)
+                                        ? Color.green
+                                        : ((result == false) ? Color.red : Color.gray.opacity(0.3)),
+                                        lineWidth: 3
+                                    )
                             )
                             .onDrop(of: [UTType.text], isTargeted: nil) { providers in
                                 handleDrop(providers: providers, targetEx: ex)
@@ -70,18 +87,18 @@ struct MatchingExerciseView: View {
                             if completedInCurrentPair.contains(ex.id), case let .text(answerText) = ex.answer {
                                 Text(answerText.uppercased()).bold().foregroundColor(.green)
                             } else {
-                                Text("???").font(.caption).foregroundColor(.gray)
+                                Text("").font(.caption).foregroundColor(.gray)
                             }
                         }
                     }
                 }
                 .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
 
-                Spacer()
+                //Spacer()
 
                 // --- AREA PAROLE (GRUPPO CORRENTE) ---
                 VStack(spacing: 15) {
-                    Text("Trascina le etichette:").font(.subheadline)
+                    Text("TRASCINA LE ETICHETTE").font(.subheadline)
                     HStack(spacing: 15) {
                         ForEach(shuffledAnswers, id: \.self) { answer in
                             Text(answer)
@@ -112,6 +129,7 @@ struct MatchingExerciseView: View {
         }
         shuffledAnswers = answers.shuffled()
         completedInCurrentPair = []
+        lastResultPerTarget = [:]
     }
 
     private func handleDrop(providers: [NSItemProvider], targetEx: Esercizio<EsercizioContent, EsercizioContent>) -> Bool {
@@ -125,28 +143,32 @@ struct MatchingExerciseView: View {
                         withAnimation(.spring()) {
                             completedInCurrentPair.insert(targetEx.id)
                             shuffledAnswers.removeAll { $0 == droppedText }
+                            lastResultPerTarget[targetEx.id] = true
                         }
-                        
-                        // 1. Controllo se la coppia corrente è completata
+
                         if completedInCurrentPair.count == pairs[currentPairIndex].count {
-                            
-                            // 2. Controllo se siamo all'ULTIMA coppia degli esercizi totali
                             let isLastPair = (currentPairIndex + 1 >= pairs.count)
-                            
                             if isLastPair {
-                                // ESERCIZIO FINITO: Aspetta che l'utente veda il check verde, poi chiudi
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                                    onComplete() // Aggiorna il Model
-                                    dismiss()    // Torna alla Roadmap
+                                    onComplete()
+                                    dismiss()
                                 }
                             } else {
-                                // C'è un'altra coppia: caricala dopo un breve delay
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                                     withAnimation {
                                         currentPairIndex += 1
                                         loadCurrentPair()
                                     }
                                 }
+                            }
+                        }
+                    } else {
+                        withAnimation(.easeIn(duration: 0.15)) {
+                            lastResultPerTarget[targetEx.id] = false
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                            withAnimation(.easeOut(duration: 0.2)) {
+                                lastResultPerTarget[targetEx.id] = nil
                             }
                         }
                     }
