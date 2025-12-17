@@ -128,9 +128,9 @@
         // 10 esercizi relativi al primo bottone della prima lezione
         static let l2b2: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
             // Prima del '|' le risposte giuste, dopo il '|' i distrattori
-            Esercizio(.text("This caprese salad is made of ___ and ___"), .text("Tomato, Mozzarella | Ham, Bread")),
-            Esercizio(.text("The pizza ___ mushrooms and cheese"), .text("has | is, are")),
-            Esercizio(.text("Can I add ___ and ___ to my salad?"), .text("Oil, Salt | Sugar, Milk"))
+            Esercizio(.text("I'm allergic to ___, so I can't eat bread, pasta or pizza."), .text("Gluten | Nickel, Soy")),
+            Esercizio(.text("She has a ___ allergy, so she can't drink milk."), .text("Dairy | Peanut, Fish")),
+            Esercizio(.text("I have a ___ intolerance, so I can't drink milk."), .text("Lactose | Sugar, Peanut"))
         ])
         
         
@@ -218,7 +218,7 @@
             
             self.lessonsList = [
                 Lesson(title: "Menù", number: "1", argomenti: self.argsL1),
-                Lesson(title: "Numbers", number: "2", argomenti: self.argsL2),
+                Lesson(title: "Service", number: "2", argomenti: self.argsL2),
                 //Lesson(title: "Kitchen", number: "3", argomenti: self.argsL1),
                 //Lesson(title: "Ingredients", number: "4", argomenti: self.argsL1),
                 //Lesson(title: "Advanced", number: "5", argomenti: self.argsL1),
