@@ -219,10 +219,10 @@
             self.lessonsList = [
                 Lesson(title: "Menù", number: "1", argomenti: self.argsL1),
                 Lesson(title: "Numbers", number: "2", argomenti: self.argsL2),
-                Lesson(title: "Kitchen", number: "3", argomenti: self.argsL1),
-                Lesson(title: "Ingredients", number: "4", argomenti: self.argsL1),
-                Lesson(title: "Advanced", number: "5", argomenti: self.argsL1),
-                Lesson(title: "Advanced", number: "6", argomenti: self.argsL1)
+                //Lesson(title: "Kitchen", number: "3", argomenti: self.argsL1),
+                //Lesson(title: "Ingredients", number: "4", argomenti: self.argsL1),
+                //Lesson(title: "Advanced", number: "5", argomenti: self.argsL1),
+                //Lesson(title: "Advanced", number: "6", argomenti: self.argsL1)
             ]
         }
         
