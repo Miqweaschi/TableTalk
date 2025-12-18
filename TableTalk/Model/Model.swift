@@ -136,6 +136,21 @@ struct DialogueStep: Hashable, Identifiable {
             
             Esercizio(.imageAsset(path: "Mushrooms"), .text("Mushrooms"), done: false),
             Esercizio(.imageAsset(path: "Tomatoes"), .text("Tomatoes"), done: false),
+            
+            Esercizio(.imageAsset(path: "Basil"), .text("Basil"), done: false),
+            Esercizio(.imageAsset(path: "Onion"), .text("Onion"), done: false),
+            
+            Esercizio(.imageAsset(path: "Tuna"), .text("Tuna"), done: false),
+            Esercizio(.imageAsset(path: "Salmon"), .text("Salmon"), done: false),
+            
+            Esercizio(.imageAsset(path: "Potatos"), .text("Potatos"), done: false),
+            Esercizio(.imageAsset(path: "Butter"), .text("Butter"), done: false),
+            
+            Esercizio(.imageAsset(path: "Farina"), .text("Flour"), done: false),
+            Esercizio(.imageAsset(path: "Chicken"), .text("Chicken"), done: false),
+            
+            Esercizio(.imageAsset(path: "Bacon"), .text("Bacon"), done: false),
+            Esercizio(.imageAsset(path: "Salad"), .text("Salad"), done: false),
         ])
         
         
@@ -165,35 +180,35 @@ struct DialogueStep: Hashable, Identifiable {
 
         
         static let l2b1_drag: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
+            Esercizio(.imageAsset(path: "CreditCard"), .text("Credit Card"), done: false),
+            Esercizio(.imageAsset(path: "Tips"), .text("Tips"), done: false),
             
-            Esercizio(.text("Excuse me, can we have the ___, please?"), .text("bill | menu, order")),
+            Esercizio(.imageAsset(path: "PayingWithCard"), .text("Paying with card"), done: false),
+            Esercizio(.imageAsset(path: "Coins"), .text("Coins"), done: false),
             
+            Esercizio(.imageAsset(path: "TypingPin"), .text("Typing Pin"), done: false),
+            Esercizio(.imageAsset(path: "PosTerminal"), .text("Pos Terminal"), done: false),
             
-            Esercizio(.text("Do you want to pay by cash or ___?"), .text("credit card | passport, car")),
+            Esercizio(.imageAsset(path: "ContactLess"), .text("ContactLess"), done: false),
+            Esercizio(.imageAsset(path: "PaperBill"), .text("Paper Bill"), done: false),
             
+            Esercizio(.imageAsset(path: "PayingWithCash"), .text("Paying with cash"), done: false),
+            Esercizio(.imageAsset(path: "WaiterHandingBill"), .text("Waiter Handing Bill"), done: false),
             
-            Esercizio(.text("Can we ___ the bill in two?"), .text("split | cut, break")),
+            Esercizio(.imageAsset(path: "TypingPin"), .text("Typing Pin"), done: false),
+            Esercizio(.imageAsset(path: "Tips"), .text("Tips"), done: false),
             
-          
-            Esercizio(.text("Here is your ___, sir."), .text("receipt | recipe, ticket")),
+            Esercizio(.imageAsset(path: "PayingWithCard"), .text("Paying With Card"), done: false),
+            Esercizio(.imageAsset(path: "ContactLess"), .text("ContactLess"), done: false),
             
+            Esercizio(.imageAsset(path: "PosTerminal"), .text("Pos Terminal"), done: false),
+            Esercizio(.imageAsset(path: "PayingWithCash"), .text("Paying With Cash"), done: false),
             
-            Esercizio(.text("Thank you, keep the ___."), .text("change | money, coins")),
+            Esercizio(.imageAsset(path: "CreditCard"), .text("Credit Card"), done: false),
+            Esercizio(.imageAsset(path: "PaperBill"), .text("Paper Bill"), done: false),
             
-            
-            Esercizio(.text("Service is ___ in the price."), .text("included | inside, free")),
-            
-            
-            Esercizio(.text("The ___ is 45 euros."), .text("total | sum, rest")),
-            
-            
-            Esercizio(.text("We would like to pay ___."), .text("separately | alone, divided")),
-            
-            
-            Esercizio(.text("Please, enter your ___ code."), .text("PIN | PEN, PAN")),
-            
-            
-            Esercizio(.text("You can pay at the ___."), .text("counter | table, kitchen"))
+            Esercizio(.imageAsset(path: "WaiterHandingBill"), .text("Waiter Handing Bill"), done: false),
+            Esercizio(.imageAsset(path: "Coins"), .text("Coins"), done: false),
         ])
         
         
@@ -239,12 +254,43 @@ struct DialogueStep: Hashable, Identifiable {
             Esercizio(.imageAsset(path: "Carrots"), .text("Carrots")),
 
             
-            Esercizio(.text("We have fresh ___ of the day. (pesce)"), .text("Fish")),
+            Esercizio(.text("How do you say 'Noci' in English?"), .text("Nuts")),
 
         
-            Esercizio(.imageAsset(path: "Meat"), .text("Meat"))
+            Esercizio(.imageAsset(path: "Tips"), .text("Tips"))
 
         ])
+        
+        static let mixEserciziL2: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
+                    
+                    // Esercizio 1: Traduzione
+                    Esercizio(.text("How do you say 'glutine' in English?"), .text("Gluten | Glue, Glucose")),
+                    
+                    Esercizio(.imageAsset(path: "CreditCard"), .text("Credit Card")),
+              
+                    Esercizio(.text("I'm allergic to ___ (funghi), please checks the ingredients."), .text("Mushrooms | Onions, Olives")),
+                    
+                    
+                    Esercizio(.imageAsset(path: "Coins"), .text("Coins")),
+                    
+                   
+                    Esercizio(.text("How do you say 'crostacei' in English?"), .text("Shellfish | Fish, Crabs")),
+                    
+                    
+                    Esercizio(.imageAsset(path: "PosTerminal"), .text("Pos Terminal")),
+                    
+                
+                    Esercizio(.text("He is allergic to ___ (pesci), so he can't eat salmon or tuna."), .text("Fish | Meat, Chicken")),
+                    
+                   
+                    Esercizio(.imageAsset(path: "PaperBill"), .text("Paper Bill")),
+
+                
+                    Esercizio(.text("We have fresh ___ of the day. (pesce)"), .text("Fish | Soup, Steak")),
+
+                    Esercizio(.imageAsset(path: "TypingPin"), .text("Typing Pin"))
+
+                ])
         
          
         // Varie lezioni
@@ -272,7 +318,7 @@ struct DialogueStep: Hashable, Identifiable {
                 
                 Argomento(number: "2", content: "", completed: false, esercizi: Model.l2b2),
                 
-                Argomento(number: "3", content: "", completed: false, esercizi: Model.mixEserciziL1),
+                Argomento(number: "3", content: "", completed: false, esercizi: Model.mixEserciziL2),
             ])
             
             self.argsL3 = Argomenti(items: [
