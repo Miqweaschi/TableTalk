@@ -84,7 +84,7 @@ struct SimulationView: View {
                             }
                             .padding(.horizontal)
                             // MODIFICA QUI: Aumentato da 50 a 100 per alzare i pulsanti
-                            .padding(.bottom, 100)
+                            .padding(.bottom, 110)
                         }
                         .background(.white)
                         .simCornerRadius(30, corners: [.topLeft, .topRight])

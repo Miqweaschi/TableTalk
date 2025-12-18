@@ -8,7 +8,8 @@ struct LessonsView: View {
             VStack(spacing: 0) {
                 // Header coerente con il tuo stile
                 Text("Lessons")
-                    .font(.largeTitle)
+                    .font(Font.largeTitle)
+                    .bold()
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding(.bottom, 20)
