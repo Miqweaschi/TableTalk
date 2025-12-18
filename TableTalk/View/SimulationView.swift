@@ -35,7 +35,7 @@ struct SimulationView: View {
                 if isCompleted {
                     Spacer()
                     VStack(spacing: 20) {
-                        Text("Excellent Job!").font(.largeTitle).bold().foregroundColor(.white).shadow(radius: 5)
+                        /*Text("Excellent Job!").font(.largeTitle).bold().foregroundColor(.white).shadow(radius: 5)*/
                         Button("Torna al Menu") { dismiss() }
                             .font(.headline).foregroundColor(brandRed).padding()
                             .background(.white).cornerRadius(15).shadow(radius: 5)
