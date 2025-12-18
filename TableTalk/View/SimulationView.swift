@@ -21,6 +21,7 @@ struct SimulationView: View {
                 .frame(width: UIScreen.main.bounds.width)
                 .clipped()
                 .ignoresSafeArea()
+                .offset(y:-100)
             
             VStack(spacing: 0) {
                 // HEADER PROGRES BAR
@@ -39,6 +40,7 @@ struct SimulationView: View {
                         Button("Torna al Menu") { dismiss() }
                             .font(.headline).foregroundColor(brandRed).padding()
                             .background(.white).cornerRadius(15).shadow(radius: 5)
+                            
                     }
                     .padding(.bottom, 200)
                 } else {
