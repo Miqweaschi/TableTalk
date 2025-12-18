@@ -3,6 +3,8 @@ import UniformTypeIdentifiers
 
 // MARK: - CONFIGURAZIONE
 private let appRed = Color(red: 182/255, green: 23/255, blue: 45/255)
+// Definiamo il colore di sfondo uguale all'esempio per coerenza
+private let appBackground = Color(red: 255/255, green: 247/255, blue: 238/255)
 private let extraWords = ["Wine", "Water", "Menu", "Table", "Fork", "Knife", "Plate", "Glass"]
 
 struct MixedExerciseView: View {
@@ -16,7 +18,9 @@ struct MixedExerciseView: View {
             // Barra Progresso
             HStack {
                 ForEach(0..<esercizi.count, id: \.self) { i in
-                    Capsule().fill(i <= idx ? appRed : .gray.opacity(0.2)).frame(height: 6)
+                    Capsule()
+                        .fill(i <= idx ? appRed : .gray.opacity(0.2))
+                        .frame(height: 6)
                 }
             }.padding()
             
@@ -28,9 +32,13 @@ struct MixedExerciseView: View {
                 } else {
                     ImageDropView(img: ex.imageName, answer: ex.textAnswer, next: next)
                 }
+            } else {
+                Spacer() // Spacer di sicurezza nel caso idx vada fuori range
             }
         }
-        .background(Color(red: 255/255, green: 247/255, blue: 238/255))
+        // MODIFICA IMPORTANTE: Forza la vista a occupare tutto lo schermo prima di applicare lo sfondo
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(appBackground)
         .animation(.easeInOut, value: idx)
     }
     
@@ -66,6 +74,8 @@ struct FillInBlankView: View {
                 if valid.map({$0.lowercased().trim()}).contains(input.lowercased().trim()) { next() }
             }
             .buttonStyle(.borderedProminent).tint(appRed)
+            
+            Spacer() // MODIFICA: Spinge il contenuto in alto per riempire la pagina
         }
         .onAppear { opts = setupOptions(answer: answer, limit: 6) }
     }
@@ -102,6 +112,8 @@ struct ImageDropView: View {
                         .onDrag { NSItemProvider(object: w as NSString) }
                 }
             }.padding(.horizontal)
+            
+            Spacer() // MODIFICA: Spinge il contenuto in alto per riempire la pagina
         }
         .onAppear { opts = setupOptions(answer: answer, limit: 4) }
     }
