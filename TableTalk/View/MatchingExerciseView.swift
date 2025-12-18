@@ -21,7 +21,7 @@ struct MatchingExerciseView: View {
         VStack(spacing: 20) {
             // Progress Bar
             ProgressView(value: Double(pIdx + 1), total: Double((esercizi.count + 1) / 2))
-                .tint(.red).padding()
+                .tint(Color(red: 182/255, green: 23/255, blue: 45/255)).padding()
             
             Text("Abbina le parole").font(.title2).bold()
             
@@ -75,11 +75,12 @@ struct MatchingExerciseView: View {
     }
 }
 
-// MARK: - COMPONENTI COMPATTI
+// Drag
 struct DraggableTag: View {
     let text: String
     var body: some View {
-        Text(text).bold().padding().background(Color.red).foregroundColor(.white).cornerRadius(10)
+        Text(text).bold().padding().background(Color(red: 182/255, green: 23/255, blue: 45/255)).foregroundColor(.white).cornerRadius(10)
+        
             .onDrag { NSItemProvider(object: text as NSString) }
     }
 }
@@ -94,8 +95,14 @@ struct DropSlot: View {
     var body: some View {
         VStack {
             ZStack {
-                Image(ex.imageName).resizable().scaledToFill()
-                    .frame(width: 140, height: 140).clipped()
+                Image(ex.imageName)
+                    .resizable()
+                    .scaledToFill()
+                    //.scaleEffect(1)
+                    .frame(width: 180, height: 180)
+                    .offset(y: -35)
+                    .clipped()
+                    .clipShape(RoundedRectangle(cornerRadius: 18))
                 
                 // Overlay stati (Verde/Rosso)
                 if state != .none {
@@ -103,9 +110,12 @@ struct DropSlot: View {
                     Image(systemName: state == .ok ? "checkmark.circle.fill" : "xmark.circle.fill")
                         .font(.largeTitle).foregroundColor(.white)
                 }
-            }
-            .cornerRadius(15)
-            .overlay(RoundedRectangle(cornerRadius: 15).stroke(state == .ok ? .green : (state == .err ? .red : .gray.opacity(0.3)), lineWidth: 3))
+            } .frame(width: 180, height: 180)
+            .cornerRadius(18)
+            .overlay(
+                RoundedRectangle(cornerRadius: 18)
+                    .stroke(state == .ok ? .green : (state == .err ? .red : .gray.opacity(0.3)), lineWidth: 3)
+            )
             .onDrop(of: [.text], isTargeted: nil) { providers in
                 providers.first?.loadObject(ofClass: NSString.self) { s, _ in
                     if let txt = s as? String { DispatchQueue.main.async { onDrop(txt) } }

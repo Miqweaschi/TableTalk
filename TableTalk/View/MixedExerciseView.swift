@@ -47,7 +47,7 @@ struct MixedExerciseView: View {
     }
 }
 
-// MARK: - ESERCIZIO 1: RIEMPI GLI SPAZI
+// Riempi gli spazi
 struct FillInBlankView: View {
     let question: String, answer: String
     let next: () -> Void
@@ -81,7 +81,7 @@ struct FillInBlankView: View {
     }
 }
 
-// MARK: - ESERCIZIO 2: DRAG & DROP IMMAGINE
+// Drag and drop
 struct ImageDropView: View {
     let img: String, answer: String
     let next: () -> Void
