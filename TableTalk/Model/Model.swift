@@ -413,7 +413,7 @@ struct DialogueStep: Hashable, Identifiable {
                 ])
                 
                 // SIMULAZIONE 3: Pagamento (NUOVA)
-                let sim3 = SimulationScenario(title: "Payment",
+           /*     let sim3 = SimulationScenario(title: "Payment",
                                               imageName: "Who?",
                                               steps: [
                     DialogueStep(
@@ -431,9 +431,9 @@ struct DialogueStep: Hashable, Identifiable {
                         expectedAnswer: "Thank you. Here is your receipt.",
                         options: ["Thank you. Here is your receipt.", "Goodbye forever", "Keep the card", "Bad code"]
                     )
-                ])
+                ])*/
                 
-                self.simulations = [sim1, sim2, sim3]
+                self.simulations = [sim1, sim2] //sim3]
             }
         }
         
