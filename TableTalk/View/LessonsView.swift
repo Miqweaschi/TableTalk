@@ -9,7 +9,6 @@ struct LessonsView: View {
                 // Header coerente con il tuo stile
                 Text("Lessons")
                     .font(.largeTitle)
-                    .bold()
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding(.bottom, 20)

@@ -17,6 +17,8 @@
     }
 
 
+
+
     // Questa struct contiene un singolo esercizio
     struct Esercizio<Q: Hashable, A: Hashable>: Hashable {
         var id = UUID()
@@ -333,7 +335,7 @@ struct DialogueStep: Hashable, Identifiable {
             self.lessonsList = [
                 Lesson(title: "Menù", number: "1", argomenti: self.argsL1),
                 Lesson(title: "Service", number: "2", argomenti: self.argsL2),
-                Lesson(title: "Cooking Methods", number: "3", argomenti: self.argsL3),
+                //Lesson(title: "Cooking Methods", number: "3", argomenti: self.argsL3),
                 //Lesson(title: "Ingredients", number: "4", argomenti: self.argsL1),
                 //Lesson(title: "Advanced", number: "5", argomenti: self.argsL1),
                 //Lesson(title: "Advanced", number: "6", argomenti: self.argsL1)
@@ -341,6 +343,27 @@ struct DialogueStep: Hashable, Identifiable {
             
             setupSimulations()
         }
+        
+    
+        func calculateGlobalProgress() -> Double {
+            var totalItems = 0
+            var completedItems = 0
+            
+
+            for lesson in lessonsList {
+                for argomento in lesson.argomenti.items {
+                    totalItems += 1
+                    if argomento.completed {
+                        completedItems += 1
+                    }
+                }
+            }
+
+            if totalItems == 0 { return 0.0 }
+            
+            return Double(completedItems) / Double(totalItems)
+        }
+        
         
         @Published var simulations: [SimulationScenario] = []
         
