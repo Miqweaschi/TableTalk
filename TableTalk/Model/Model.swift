@@ -145,7 +145,7 @@ struct DialogueStep: Hashable, Identifiable {
             Esercizio(.imageAsset(path: "Tuna"), .text("Tuna"), done: false),
             Esercizio(.imageAsset(path: "Salmon"), .text("Salmon"), done: false),
             
-            Esercizio(.imageAsset(path: "Potatos"), .text("Potatos"), done: false),
+            Esercizio(.imageAsset(path: "Potatoes"), .text("Potatoes"), done: false),
             Esercizio(.imageAsset(path: "Butter"), .text("Butter"), done: false),
             
             Esercizio(.imageAsset(path: "Farina"), .text("Flour"), done: false),
@@ -158,7 +158,7 @@ struct DialogueStep: Hashable, Identifiable {
         
         static let l1b2: Esercizi<EsercizioContent, EsercizioContent> = Esercizi(items: [
         
-            Esercizio(.text("This caprese salad is made of ___ and ___"), .text("Tomato, Mozzarella | Ham, Bread")),
+            Esercizio(.text("The caprese salad is made of ___ and ___"), .text("Tomato, Mozzarella | Ham, Bread")),
             
             Esercizio(.text("The pizza ___ mushrooms and cheese"), .text("has | is, are")),
             
