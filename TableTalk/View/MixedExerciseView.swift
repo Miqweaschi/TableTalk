@@ -93,9 +93,18 @@ struct ImageDropView: View {
             
             ZStack {
                 RoundedRectangle(cornerRadius: 20).fill(.white).shadow(radius: 5)
-                Image(img).resizable().scaledToFit().padding(10)
+                //Image(img).resizable().scaledToFit().padding(10)
+                Image(img)
+                    .resizable()
+                    .scaledToFill()
+                    //.scaleEffect(1)
+                    .frame(width: 180, height: 180)
+                    .offset(y: -35)
+                    .clipped()
+                    .clipShape(RoundedRectangle(cornerRadius: 18))
+                
             }
-            .frame(width: 250, height: 250)
+            .frame(width: 180, height: 180)
             .onDrop(of: [.text], isTargeted: nil) { providers in
                 providers.first?.loadObject(ofClass: NSString.self) { item, _ in
                     if let txt = item as? String, txt.isEqual(to: answer) {

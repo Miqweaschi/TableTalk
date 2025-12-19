@@ -371,7 +371,7 @@ struct DialogueStep: Hashable, Identifiable {
         
         func setupSimulations() {
                 // SIMULAZIONE 1: Accoglienza
-                let sim1 = SimulationScenario(title: "Welcome",
+                let sim1 = SimulationScenario(title: "Menù",
                                               imageName: "Person3",
                                               steps: [
                     DialogueStep(
@@ -392,7 +392,7 @@ struct DialogueStep: Hashable, Identifiable {
                 ])
                 
                 // SIMULAZIONE 2: Ordinazione (NUOVA)
-                let sim2 = SimulationScenario(title: "Ordering",
+                let sim2 = SimulationScenario(title: "Service",
                                               imageName: "Person3",
                                               steps: [
                     DialogueStep(

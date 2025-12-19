@@ -1,4 +1,4 @@
-import SwiftUI
+/*import SwiftUI
 
 struct LessonsView: View {
     @EnvironmentObject var model: Model
@@ -55,3 +55,44 @@ struct LessonsView: View {
         }
     }
 }
+*/
+import SwiftUI
+
+struct LessonsView: View {
+    @EnvironmentObject var model: Model
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            // Header identico
+            Text("Lessons")
+                .font(.largeTitle)
+                .bold()
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.bottom, 20)
+                .padding(.top, 50)
+                .background(Color(red: 182/255, green: 23/255, blue: 45/255))
+            
+            NavigationStack {
+                List {
+                    ForEach(Array(model.lessonsList.enumerated()), id: \.element.id) { index, lesson in
+                        NavigationLink(destination: RoadMapView(lesson: lesson, lessonIndex: index, model: model)) {
+                            HStack(spacing: 12) {
+                                Image(systemName: "book.closed.fill")
+                                    .foregroundColor(.red)
+                                Text("\(lesson.number) — \(lesson.title)")
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+                            }
+                            .padding(.vertical, 10)
+                        }
+                    }
+                }
+                .scrollContentBackground(.hidden)
+                .background(Color(red: 255/255, green: 247/255, blue: 238/255))
+            }
+            .background(Color(red: 255/255, green: 247/255, blue: 238/255))
+        }
+    }
+}
+

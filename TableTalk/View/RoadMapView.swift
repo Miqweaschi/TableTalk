@@ -33,7 +33,7 @@ struct RoadMapView: View {
                     .overlay(
                         Circle().stroke(Color(red: 182/255, green: 23/255, blue: 45/255), lineWidth: 4)
                     )
-                    .offset(x: -97, y: -33)
+                    .offset(x: -97, y: 33)
                     
                     // RoadMapView.swift - All'interno del NavigationStack
 
@@ -53,7 +53,7 @@ struct RoadMapView: View {
                     .overlay(
                         Circle().stroke(Color(red: 182/255, green: 23/255, blue: 45/255), lineWidth: 4)
                     )
-                    .offset(x: 105, y: 44)
+                    .offset(x: 105, y: 64)
                     
                     // BOTTONE 3: Usa MixedExerciseView (passa l'ARRAY .items)
                     NavigationLink {
@@ -69,10 +69,11 @@ struct RoadMapView: View {
                     .overlay(
                         Circle().stroke(Color(red: 182/255, green: 23/255, blue: 45/255), lineWidth: 4)
                     )
-                    .offset(x: -101, y: 88)
+                    .offset(x: -101, y: 68)
                 }
                 .background(Color.clear)
             }
+            //.toolbar(.hidden, for: .tabBar)
         }
     }
     
@@ -123,3 +124,5 @@ struct RoadMapView: View {
         model.lessonsList[lessonIndex].argomenti.items[argIndex].completed = true
     }
 }
+
+
